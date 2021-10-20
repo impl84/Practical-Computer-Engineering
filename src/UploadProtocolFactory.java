@@ -13,6 +13,7 @@ public class UploadProtocolFactory
 	/**
 	 * UploadProtocol のインスタンスを生成し，Runnable インターフェースとして返す．
 	 */
+	@Override
 	public Runnable createProtocol(Socket clntSock, Logger logger)
 	{
 		return new UploadProtocol(clntSock, logger);
@@ -44,6 +45,7 @@ class UploadProtocol
 	/**
 	 * クライアントが要求するサイズ分のデータを受信する．
 	 */
+	@Override
 	public void run()
 	{
 		try {

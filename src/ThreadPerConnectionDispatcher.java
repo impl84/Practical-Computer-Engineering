@@ -13,6 +13,7 @@ class ThreadPerConnectionDispatcher
 	 * コネクション毎に新しいスレッドを割り当てる方法を用いて
 	 * ディスパッチ処理を開始する．
 	 */
+	@Override
 	public void startDispatching(
 		ServerSocket servSock, ProtocolFactory factory, Logger logger
 	) {

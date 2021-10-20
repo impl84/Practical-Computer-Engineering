@@ -28,6 +28,7 @@ public class FileLogger
 	/**
 	 * 文字列をファイルへ出力する．
 	 */
+	@Override
 	public synchronized void println(String line)
 	{
 		this.out.println(line);
@@ -36,6 +37,7 @@ public class FileLogger
 	/**
 	 * フォーマットを指定した文字列をファイルへ出力する．
 	 */
+	@Override
 	public synchronized void printf(String format, Object... args)
 	{
 		this.out.print(String.format(format, args));
@@ -44,6 +46,7 @@ public class FileLogger
 	/**
 	 * 行のリストをファイルへ出力する．
 	 */	
+	@Override
 	public synchronized void printlist(Collection<String> entry)
 	{
 		for (String line: entry) {

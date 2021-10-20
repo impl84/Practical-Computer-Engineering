@@ -15,6 +15,7 @@ public class EchoProtocolFactory
 	 * EchoProtocol のインスタンスを生成し，
 	 * Runnable インターフェースとして返す．
 	 */
+	@Override
 	public Runnable createProtocol(Socket clntSock, Logger logger)
 	{
 		return new EchoProtocol(clntSock, logger);
@@ -46,6 +47,7 @@ class EchoProtocol
 	/**
 	 * クライアントからデータを受信し，同じデータをクライアントへ送り返す．
 	 */
+	@Override
 	public void run()
 	{
 		// このスレッドにおける処理結果を保持するための

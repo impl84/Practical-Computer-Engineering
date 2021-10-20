@@ -15,6 +15,7 @@ class ThreadPoolDispatcher
 	/**
 	 * スレッドプールによるディスパッチ処理を開始する．
 	 */
+	@Override
 	public void startDispatching(
 		ServerSocket servSock, ProtocolFactory factory, Logger logger
 	) {

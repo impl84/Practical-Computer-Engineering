@@ -10,6 +10,7 @@ public class ConsoleLogger
 	/**
 	 * 文字列をコンソールへ出力する．
 	 */
+	@Override
 	public synchronized void println(String line)
 	{
 		System.out.println(line);
@@ -18,6 +19,7 @@ public class ConsoleLogger
 	/**
 	 * フォーマットを指定した文字列をコンソールへ出力する．
 	 */
+	@Override
 	public synchronized void printf(String format, Object... args)
 	{
 		System.out.print(String.format(format, args));
@@ -26,6 +28,7 @@ public class ConsoleLogger
 	/**
 	 * 行のリストをコンソールへ出力する．
 	 */
+	@Override
 	public synchronized void printlist(Collection<String> entry)
 	{
 		for (String line: entry) {
