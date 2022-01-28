@@ -6,18 +6,18 @@ import java.util.Collection;
  */
 public interface Logger
 {
-	/**
-	 * 文字列を出力する．
-	 */
-	public void println(String line);
-	
-	/**
-	 * フォーマットを指定した文字列を出力する．
-	 */
-	public void printf(String format, Object... args);
-	
-	/**
-	 * 行のリストを出力する．
-	 */
-	public void printlist(Collection<String> entry);
+    /**
+     * 文字列を出力する．
+     */
+    public void println(String line);
+    
+    /**
+     * フォーマットを指定した文字列を出力する．
+     */
+    public void printf(String format, Object... args);
+    
+    /**
+     * 行のリストを出力する．
+     */
+    public void printlist(Collection<String> entry);
 }
