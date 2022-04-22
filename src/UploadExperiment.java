@@ -12,16 +12,19 @@ public class UploadExperiment
     private static final int MEGA_BYTE = KILO_BYTE * 1024;
     private static final int GIGA_BYTE = MEGA_BYTE * 1024;
     
-    private static final int TOTAL_SIZE = 100 * MEGA_BYTE;	// 送信する総データサイズ
-    private static final int TRY_COUNT  = 10;				// 送信試行回数
+    // 送信する総データサイズと送信試行回数
+    private static final int TOTAL_SIZE = 1 * MEGA_BYTE;
+    private static final int TRY_COUNT  = 10;
     
     // 送信バッファサイズの配列
     private static final int[] BUF_SIZE_ARRAY = {
-        256, 512, 1024, 2048, 4096, 8192 };
+        8, 16, 32, 64, 128, 256
+    };
     
     // 同時に利用するソケット数の配列
     private static final int[] NUM_SOCKS_ARRAY = {
-        1, 2, 4, 8, 16, 32, 64, 128 };
+        1, 2, 3, 4, 5, 6, 7, 8
+    };
     
     /**
      * サーバへのデータ送信実験用クライアントを利用するための main メソッド
@@ -57,14 +60,15 @@ public class UploadExperiment
         }
         catch (Exception ex) {
             System.out.println("例外発生：" + ex.getMessage());
+            ex.printStackTrace();
         }
     }
     
     // インスタンス変数：
-    private String        servAddr = null;		// サーバのIPアドレス(またはホスト名)
-    private int           servPort = 0;			// サーバのポート番号
-    private ConsoleLogger clog     = null;	// コンソールへの出力用 Logger
-    private FileLogger    flog     = null;		// ファイルへの出力用 Logger
+    private final String        servAddr;   // サーバのIPアドレス(またはホスト名)
+    private final int           servPort;   // サーバのポート番号
+    private final ConsoleLogger clog;       // コンソールへの出力用 Logger
+    private final FileLogger    flog;       // ファイルへの出力用 Logger
     
     /**
      * UploadExperiment のインスタンスを生成する．
@@ -195,6 +199,11 @@ public class UploadExperiment
                 // アップロード終了時刻を取得し，経過時間と経過時間の累計を求める．
                 long endTime_ms = System.currentTimeMillis();
                 elapsedTimes_ms[i] = endTime_ms - startTime_ms;
+                if (elapsedTimes_ms[i] == 0) {
+                    // ミリ秒の精度では経過時間が 0ms となる場合がある．
+                    // その場合は，最小値である 1ms 経過したものとする． 
+                    elapsedTimes_ms[i] = 1;
+                }
                 totalTime_ms += elapsedTimes_ms[i];
                 
                 // 正常にアップロードできた回数をカウントし，
@@ -317,8 +326,11 @@ public class UploadExperiment
             sum += throughput_mbps;
             count++;
         }
-        average_mbps = sum / count;
-        
+        // 1回以上，計測に成功していることを確認した上で，
+        // 平均スループットを求める．
+        if (count > 0) {
+            average_mbps = sum / count;
+        }
         // 平均スループットを返す．
         return average_mbps;
     }
@@ -343,8 +355,11 @@ public class UploadExperiment
             sum += Math.pow(throughput_mbps - average_mbps, 2);
             count++;
         }
-        stdDev_mbps = (int)Math.sqrt(sum / count);
-        
+        // 1回以上，計測に成功していることを確認した上で，
+        // 標準偏差を求める．
+        if (count > 0) {
+            stdDev_mbps = (int)Math.sqrt(sum / count);
+        }
         // スループットの標準偏差を返す．
         return stdDev_mbps;
     }
@@ -378,8 +393,7 @@ public class UploadExperiment
         // バッファサイズの配列とソケット数の配列を走査する．
         for (int bs = 0; bs < BUF_SIZE_ARRAY.length; bs++) {
             for (int ns = 0; ns < NUM_SOCKS_ARRAY.length; ns++) {
-                this.flog
-                    .printf("%d\t%d", BUF_SIZE_ARRAY[bs], NUM_SOCKS_ARRAY[ns]);
+                this.flog.printf("%d\t%d", BUF_SIZE_ARRAY[bs], NUM_SOCKS_ARRAY[ns]);
                 
                 int[] throughputs_mbps = (int[])throughputsArray[bs][ns];
                 for (int i = 0; i < TRY_COUNT; i++) {

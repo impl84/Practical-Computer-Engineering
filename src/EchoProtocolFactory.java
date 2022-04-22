@@ -13,7 +13,8 @@ public class EchoProtocolFactory
         ProtocolFactory
 {
     /**
-     * EchoProtocol のインスタンスを生成し， Runnable インターフェースとして返す．
+     * EchoProtocol のインスタンスを生成し，
+     * Runnable インターフェースとして返す．
      */
     @Override
     public Runnable createProtocol(Socket clntSock, Logger logger)
@@ -30,11 +31,11 @@ class EchoProtocol
         Runnable
 {
     // クラス変数（定数）：
-    static public final int BUFSIZE = 256;	// エコーデータ格納用バッファサイズ
+    static public final int BUFSIZE = 256;  // エコーデータ格納用バッファサイズ
     
     // インスタンス変数：
-    private Socket clntSock = null;	// クライアントと通信するためのソケット
-    private Logger logger   = null;	// ログ出力用の Logger インスタンス
+    private final Socket clntSock;  // クライアントと通信するためのソケット
+    private final Logger logger;    // ログ出力用の Logger インスタンス
     
     /**
      * EchoProtocol のインスタンスを生成する．

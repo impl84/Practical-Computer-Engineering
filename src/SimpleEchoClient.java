@@ -50,9 +50,7 @@ public class SimpleEchoClient
     }
     
     // インスタンス変数：
-    private Socket       echoSocket = null;
-    private InputStream  in         = null;
-    private OutputStream out        = null;
+    private final Socket       echoSocket;
     
     /**
      * SimpleEchoClient のインスタンスを生成する．
@@ -63,10 +61,6 @@ public class SimpleEchoClient
         // サーバとのコネクションを確立する．
         this.echoSocket = new Socket(servAddr, servPort);
         System.out.println("サーバとのコネクションを確立しました．");
-        
-        // ソケットから入出力ストリームを取得する．
-        this.in = this.echoSocket.getInputStream();
-        this.out = this.echoSocket.getOutputStream();
     }
     
     /**
@@ -75,10 +69,14 @@ public class SimpleEchoClient
     void processEchoString(String echoString)
         throws IOException
     {
+        // ソケットから入出力ストリームを取得する．
+        InputStream  in=this.echoSocket.getInputStream();
+        OutputStream out=this.echoSocket.getOutputStream();;
+        
         // 送信する文字列をバイトデータに変換し，
         // そのバイトデータをサーバへ送信する．
         byte[] byteBuffer = echoString.getBytes();
-        this.out.write(byteBuffer);
+        out.write(byteBuffer);
         System.out.println("送信文字列：" + echoString);
         
         // この後にサーバから受信する総バイト数
@@ -89,10 +87,10 @@ public class SimpleEchoClient
         while (totalBytesRcvd < byteBuffer.length) {
             
             // サーバからバイトデータを受信する．
-            int bytesRcvd = this.in.read(
-                byteBuffer,		// バイトデータを格納するバッファ
-                totalBytesRcvd,	// 格納する場所となるオフセット値
-                byteBuffer.length - totalBytesRcvd	// 受信すべきバイト数
+            int bytesRcvd = in.read(
+                byteBuffer,     // バイトデータを格納するバッファ
+                totalBytesRcvd, // 格納する場所となるオフセット値
+                byteBuffer.length - totalBytesRcvd  // 受信すべきバイト数
             );
             // InputStream.read() の戻り値を確認する．
             if (bytesRcvd >= 0) {
@@ -129,21 +127,6 @@ public class SimpleEchoClient
     void close()
         throws IOException
     {
-        try {
-            if (this.echoSocket != null) {
-                this.echoSocket.close();
-            }
-            if (this.in != null) {
-                this.in.close();
-            }
-            if (this.out != null) {
-                this.out.close();
-            }
-        }
-        finally {
-            this.echoSocket = null;
-            this.in = null;
-            this.out = null;
-        }
+        this.echoSocket.close();
     }
 }

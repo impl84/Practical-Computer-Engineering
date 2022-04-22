@@ -32,8 +32,8 @@ class UploadProtocol
     static private final int BUF_SIZE = 8192;	// 受信バッファサイズ
     
     // インスタンス変数：
-    private Socket clntSock = null;	// クライアントと通信するためのソケット
-    private Logger logger   = null;	// ログ出力用の Logger インスタンス
+    private final Socket clntSock;  // クライアントと通信するためのソケット
+    private final Logger logger;    // ログ出力用の Logger インスタンス
     
     /**
      * UploadProtocol のインスタンスを生成する．

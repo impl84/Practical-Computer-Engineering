@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 public class ProtocolLauncher
 {
     // クラス変数（定数）：
-    static private final int BACKLOG = 128;	// TCPコネクション要求処理用のキューの長さ
+    static private final int BACKLOG = 8;   // TCPコネクション要求処理用のキューの長さ
     
     /**
      * 引数で指定されたプロトコルとディスパッチャにより， サーバ側のプロトコル処理を開始する．
@@ -37,13 +37,11 @@ public class ProtocolLauncher
             // プロトコルファクトリのインスタンスを取得する．
             // 発生する可能性のある例外は以下の通り...(A)
             // forName():
-            // ClassNotFoundException
+            //      ClassNotFoundException
             // getDeclaredConstructor():
-            // NoSuchMethodException
+            //      NoSuchMethodException
             // newInstance():
-            // InstantiationException,
-            // IllegalAccessException,
-            // InvocationTargetException
+            //      InstantiationException, IllegalAccessException, InvocationTargetException
             ProtocolFactory factory = (ProtocolFactory)Class
                 .forName(factoryName)
                 .getDeclaredConstructor()
@@ -69,9 +67,7 @@ public class ProtocolLauncher
         catch (
             ClassNotFoundException
             | NoSuchMethodException
-            | InstantiationException
-            | IllegalAccessException
-            | InvocationTargetException ex
+            | InstantiationException | IllegalAccessException | InvocationTargetException ex
         ) {
             System.err.println("インスタンスの生成に失敗しました：" + ex.getMessage());
         }

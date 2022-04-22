@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit;
 class MultiThreadUploader
 {
     // インスタンス変数：
-    private String servAddr   = null;	// サーバのIPアドレス(またはホスト名)
-    private int    servPort   = 0;		// サーバのポート番号
-    private int    totalSize  = 0;		// 送信する総データサイズ
-    private int    bufferSize = 0;		// 送信バッファサイズ
-    private int    numSockets = 0;		// ソケット数
+    private final String servAddr;      // サーバのIPアドレス(またはホスト名)
+    private final int    servPort;		// サーバのポート番号
+    private final int    totalSize;		// 送信する総データサイズ
+    private final int    bufferSize;	// 送信バッファサイズ
+    private final int    numSockets;    // ソケット数
     
     /**
      * MultiThreadUploader のインスタンスを生成する．

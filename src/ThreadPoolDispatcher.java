@@ -11,7 +11,7 @@ class ThreadPoolDispatcher
         Dispatcher
 {
     // クラス変数（定数）：
-    static final int NUM_THREADS = 8;	// スレッドプール内のスレッド数
+    static final int NUM_THREADS = 8;   // スレッドプール内のスレッド数
     
     /**
      * スレッドプールによるディスパッチ処理を開始する．
@@ -26,11 +26,12 @@ class ThreadPoolDispatcher
             // dispatchLoop() メソッドを呼び出すためのスレッドを生成する．
             // ※Thread のコンストラクタにはラムダ式を利用している．
             // このラムダ式は，次の Runnable インスタンスと同じ：
-            // new Runnable() {
-            // public void run() {
-            // dispatchLoop(servSock, factory, logger);
-            // }
-            // }
+            //
+            //  new Runnable() {
+            //      public void run() {
+            //          dispatchLoop(servSock, factory, logger);
+            //      }
+            //  }
             Thread thread = new Thread(
                 () -> dispatchLoop(servSock, factory, logger)
             );
@@ -63,17 +64,13 @@ class ThreadPoolDispatcher
                 Socket clntSock = servSock.accept();
                 
                 // プロトコル処理用のインスタンスを生成する．
-                Runnable protocol = factory.createProtocol(
-                    clntSock, logger
-                );
+                Runnable protocol = factory.createProtocol(clntSock, logger);
+                
                 // プロトコルの処理をこのスレッドで実行する．
                 protocol.run();
             }
             catch (IOException ex) {
-                logger.printf(
-                    "例外発生（%s）：%s\n",
-                    threadName, ex.getMessage()
-                );
+                logger.printf("例外発生（%s）：%s\n", threadName, ex.getMessage());
             }
         }
     }

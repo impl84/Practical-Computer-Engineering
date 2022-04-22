@@ -11,7 +11,8 @@ class ThreadPerConnectionDispatcher
         Dispatcher
 {
     /**
-     * コネクション毎に新しいスレッドを割り当てる方法を用いて ディスパッチ処理を開始する．
+     * コネクション毎に新しいスレッドを割り当てる方法を用いて
+     * ディスパッチ処理を開始する．
      */
     @Override
     public void startDispatching(
@@ -26,19 +27,15 @@ class ThreadPerConnectionDispatcher
                 Socket clntSock = servSock.accept();
                 
                 // プロトコル処理用のインスタンスを生成する．
-                Runnable protocol = factory.createProtocol(
-                    clntSock, logger
-                );
+                Runnable protocol = factory.createProtocol(clntSock, logger);
+                
                 // 生成したインスタンスの run() メソッドを呼び出す
                 // スレッドを生成し，プロトコルの処理を開始する．
                 Thread thread = new Thread(protocol);
                 thread.start();
                 
                 // 処理を開始したスレッド名をログに出力する．
-                logger.printf(
-                    "処理開始（スレッド名：%s）\n",
-                    thread.getName()
-                );
+                logger.printf("処理開始（スレッド名：%s）\n", thread.getName());
             }
             catch (IOException ex) {
                 logger.printf("例外発生：%s\n", ex.getMessage());

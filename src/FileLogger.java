@@ -12,7 +12,7 @@ public class FileLogger
         Logger
 {
     // インスタンス変数：
-    PrintWriter out = null;	// ファイルへのログ出力用 PrintWriter
+    private final PrintWriter out;  // ファイルへのログ出力用 PrintWriter
     
     /**
      * 文字列をファイルへ出力する．
@@ -21,9 +21,7 @@ public class FileLogger
         throws IOException
     {
         boolean autoFlush = true;
-        this.out = new PrintWriter(
-            new FileWriter(filename), autoFlush
-        );
+        this.out = new PrintWriter(new FileWriter(filename), autoFlush);
     }
     
     /**
@@ -61,13 +59,8 @@ public class FileLogger
      */
     public synchronized void close()
     {
-        try {
-            if (this.out != null) {
-                this.out.close();
-            }
-        }
-        finally {
-            this.out = null;
+        if (this.out != null) {
+            this.out.close();
         }
     }
 }
