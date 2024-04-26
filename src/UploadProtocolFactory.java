@@ -5,14 +5,14 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 
 /**
- * UploadProtocol �̃C���X�^���X�𐶐����邽�߂̃t�@�N�g��
+ * UploadProtocol のインスタンスを生成するためのファクトリ
  */
 public class UploadProtocolFactory
     implements
         ProtocolFactory
 {
     /**
-     * UploadProtocol �̃C���X�^���X�𐶐����CRunnable �C���^�[�t�F�[�X�Ƃ��ĕԂ��D
+     * UploadProtocol のインスタンスを生成し，Runnable インターフェースとして返す．
      */
     @Override
     public Runnable createProtocol(Socket clntSock, Logger logger)
@@ -22,21 +22,21 @@ public class UploadProtocolFactory
 }
 
 /**
- * �A���f�[�^����M����T�[�o���̋@�\�̎���
+ * 連続データを受信するサーバ側の機能の実装
  */
 class UploadProtocol
     implements
         Runnable
 {
-    // �N���X�ϐ��i�萔�j�F
-    static private final int BUF_SIZE = 8192;	// ��M�o�b�t�@�T�C�Y
+    // クラス変数（定数）：
+    static private final int BUF_SIZE = 8192;	// 受信バッファサイズ
     
-    // �C���X�^���X�ϐ��F
-    private final Socket clntSock;  // �N���C�A���g�ƒʐM���邽�߂̃\�P�b�g
-    private final Logger logger;    // ���O�o�͗p�� Logger �C���X�^���X
+    // インスタンス変数：
+    private final Socket clntSock;  // クライアントと通信するためのソケット
+    private final Logger logger;    // ログ出力用の Logger インスタンス
     
     /**
-     * UploadProtocol �̃C���X�^���X�𐶐�����D
+     * UploadProtocol のインスタンスを生成する．
      */
     public UploadProtocol(Socket clntSock, Logger logger)
     {
@@ -45,60 +45,60 @@ class UploadProtocol
     }
     
     /**
-     * �N���C�A���g���v������T�C�Y���̃f�[�^����M����D
+     * クライアントが要求するサイズ分のデータを受信する．
      */
     @Override
     public void run()
     {
         try {
-            // �\�P�b�g������̓X�g���[�����擾����
+            // ソケットから入力ストリームを取得する
             InputStream in = clntSock.getInputStream();
             // IOException
             
-            // ���̃\�P�b�g�����M����ŏ��� 4�o�C�g�ɂ́C
-            // �\�P�b�g���Ɏ�M���ׂ��f�[�^�T�C�Y���i�[����Ă���̂ŁC��������߂�D
+            // このソケットから受信する最初の 4バイトには，
+            // ソケット毎に受信すべきデータサイズが格納されているので，それを求める．
             byte[] fourBytes = new byte[4];
             int    bytesRcvd = in.read(fourBytes);
             // IOException
             if (bytesRcvd != 4) {
-                throw new IOException("�\�P�b�g���Ɏ�M���ׂ��f�[�^�T�C�Y�̎擾�Ɏ��s���܂����D");
+                throw new IOException("ソケット毎に受信すべきデータサイズの取得に失敗しました．");
             }
             int totalSizePerSocket = ByteBuffer.wrap(fourBytes).getInt();
             
-            // �N���C�A���g�����M�����S�f�[�^�T�C�Y���i�[����ϐ���p�ӂ���D
-            // ���Ɏ�M���� 4(�o�C�g)�������l�Ƃ��đ�����Ă����D
+            // クライアントから受信した全データサイズを格納する変数を用意する．
+            // 既に受信した 4(バイト)を初期値として代入しておく．
             int totalBytesRcvd = 4;
             
-            // ��M�o�b�t�@�𐶐�����D
+            // 受信バッファを生成する．
             byte[] recvBuffer = new byte[BUF_SIZE];
             
-            // ���̃\�P�b�g�𗘗p���Ď�M���ׂ��f�[�^��S�Ď�M����܂ŁC
-            // ��M�������J��Ԃ��D
+            // このソケットを利用して受信すべきデータを全て受信するまで，
+            // 受信処理を繰り返す．
             while (totalBytesRcvd < totalSizePerSocket) {
-                // �f�[�^����M����D
+                // データを受信する．
                 bytesRcvd = in.read(recvBuffer);
                 // IOException
                 
-                // �N���C�A���g���\�P�b�g������ꍇ�̓��[�v�𔲂���D
+                // クライアントがソケットを閉じた場合はループを抜ける．
                 if (bytesRcvd == -1) {
                     break;
                 }
-                // �\�P�b�g���Ɏ�M���ׂ��f�[�^�T�C�Y�ɁC
-                // �����M�����f�[�^�̃o�C�g����������D
+                // ソケット毎に受信すべきデータサイズに，
+                // 今回受信したデータのバイト数を加える．
                 totalBytesRcvd += bytesRcvd;
             }
         }
         catch (IOException ex) {
-            this.logger.println("��O�����F" + ex.getMessage());
+            this.logger.println("例外発生：" + ex.getMessage());
         }
         finally {
             try {
-                // �\�P�b�g�����D
+                // ソケットを閉じる．
                 this.clntSock.close();
                 // IOException
             }
             catch (IOException ex) {
-                this.logger.println("��O�����F" + ex.getMessage());
+                this.logger.println("例外発生：" + ex.getMessage());
             }
         }
     }

@@ -6,15 +6,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- * EchoProtocol ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é‚½‚ß‚Ìƒtƒ@ƒNƒgƒŠƒNƒ‰ƒX
+ * EchoProtocol ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ãŸã‚ã®ãƒ•ã‚¡ã‚¯ãƒˆãƒªã‚¯ãƒ©ã‚¹
  */
 public class EchoProtocolFactory
     implements
         ProtocolFactory
 {
     /**
-     * EchoProtocol ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µC
-     * Runnable ƒCƒ“ƒ^[ƒtƒF[ƒX‚Æ‚µ‚Ä•Ô‚·D
+     * EchoProtocol ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ï¼Œ
+     * Runnable ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã¨ã—ã¦è¿”ã™ï¼
      */
     @Override
     public Runnable createProtocol(Socket clntSock, Logger logger)
@@ -24,21 +24,21 @@ public class EchoProtocolFactory
 }
 
 /**
- * ƒGƒR[ƒvƒƒgƒRƒ‹‚ÌƒT[ƒo‘¤‚Ì‹@”\‚ğÀ‘•‚µ‚½ƒNƒ‰ƒX
+ * ã‚¨ã‚³ãƒ¼ãƒ—ãƒ­ãƒˆã‚³ãƒ«ã®ã‚µãƒ¼ãƒå´ã®æ©Ÿèƒ½ã‚’å®Ÿè£…ã—ãŸã‚¯ãƒ©ã‚¹
  */
 class EchoProtocol
     implements
         Runnable
 {
-    // ƒNƒ‰ƒX•Ï”i’è”jF
-    static public final int BUFSIZE = 256;  // ƒGƒR[ƒf[ƒ^Ši”[—pƒoƒbƒtƒ@ƒTƒCƒY
+    // ã‚¯ãƒ©ã‚¹å¤‰æ•°ï¼ˆå®šæ•°ï¼‰ï¼š
+    static public final int BUFSIZE = 256;  // ã‚¨ã‚³ãƒ¼ãƒ‡ãƒ¼ã‚¿æ ¼ç´ç”¨ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
     
-    // ƒCƒ“ƒXƒ^ƒ“ƒX•Ï”F
-    private final Socket clntSock;  // ƒNƒ‰ƒCƒAƒ“ƒg‚Æ’ÊM‚·‚é‚½‚ß‚Ìƒ\ƒPƒbƒg
-    private final Logger logger;    // ƒƒOo—Í—p‚Ì Logger ƒCƒ“ƒXƒ^ƒ“ƒX
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å¤‰æ•°ï¼š
+    private final Socket clntSock;  // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã¨é€šä¿¡ã™ã‚‹ãŸã‚ã®ã‚½ã‚±ãƒƒãƒˆ
+    private final Logger logger;    // ãƒ­ã‚°å‡ºåŠ›ç”¨ã® Logger ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     
     /**
-     * EchoProtocol ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+     * EchoProtocol ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
      */
     public EchoProtocol(Socket clntSock, Logger logger)
     {
@@ -47,61 +47,61 @@ class EchoProtocol
     }
     
     /**
-     * ƒNƒ‰ƒCƒAƒ“ƒg‚©‚çƒf[ƒ^‚ğóM‚µC“¯‚¶ƒf[ƒ^‚ğƒNƒ‰ƒCƒAƒ“ƒg‚Ö‘—‚è•Ô‚·D
+     * ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã—ï¼ŒåŒã˜ãƒ‡ãƒ¼ã‚¿ã‚’ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã¸é€ã‚Šè¿”ã™ï¼
      */
     @Override
     public void run()
     {
-        // ‚±‚ÌƒXƒŒƒbƒh‚É‚¨‚¯‚éˆ—Œ‹‰Ê‚ğ•Û‚·‚é‚½‚ß‚Ì
-        // •¶š—ñ‚ÌƒŠƒXƒgiƒƒOƒŠƒXƒgj‚ğ¶¬‚·‚éD
+        // ã“ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã«ãŠã‘ã‚‹å‡¦ç†çµæœã‚’ä¿æŒã™ã‚‹ãŸã‚ã®
+        // æ–‡å­—åˆ—ã®ãƒªã‚¹ãƒˆï¼ˆãƒ­ã‚°ãƒªã‚¹ãƒˆï¼‰ã‚’ç”Ÿæˆã™ã‚‹ï¼
         ArrayList<String> logList = new ArrayList<String>();
         
-        // ƒXƒŒƒbƒh–¼CƒNƒ‰ƒCƒAƒ“ƒg‚ÌƒAƒhƒŒƒX‚Æƒ|[ƒg”Ô†‚ğ
-        // ƒƒOƒŠƒXƒg‚É’Ç‰Á‚·‚éD
-        logList.add("¤ƒXƒŒƒbƒhF" + Thread.currentThread().getName());
+        // ã‚¹ãƒ¬ãƒƒãƒ‰åï¼Œã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã¨ãƒãƒ¼ãƒˆç•ªå·ã‚’
+        // ãƒ­ã‚°ãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹ï¼
+        logList.add("â–½ã‚¹ãƒ¬ãƒƒãƒ‰ï¼š" + Thread.currentThread().getName());
         logList.add(
-            "EƒNƒ‰ƒCƒAƒ“ƒgF"
-                + this.clntSock.getInetAddress().getHostAddress() + "C"
+            "ãƒ»ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆï¼š"
+                + this.clntSock.getInetAddress().getHostAddress() + "ï¼Œ"
                 + this.clntSock.getPort()
         );
         
         try {
-            // ƒ\ƒPƒbƒg‚©‚ç“üo—ÍƒXƒgƒŠ[ƒ€‚ğæ“¾‚·‚éD
+            // ã‚½ã‚±ãƒƒãƒˆã‹ã‚‰å…¥å‡ºåŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’å–å¾—ã™ã‚‹ï¼
             InputStream  in  = this.clntSock.getInputStream();
             OutputStream out = this.clntSock.getOutputStream();
             
-            // ƒGƒR[ƒf[ƒ^Ši”[—pƒoƒbƒt‚ğ¶¬‚·‚éD
+            // ã‚¨ã‚³ãƒ¼ãƒ‡ãƒ¼ã‚¿æ ¼ç´ç”¨ãƒãƒƒãƒ•ã‚’ç”Ÿæˆã™ã‚‹ï¼
             byte[] echoBuffer = new byte[BUFSIZE];
             
-            // óM‚µ‚½ƒƒbƒZ[ƒW‚ÌƒTƒCƒY‚ÆC
-            // ƒNƒ‰ƒCƒAƒ“ƒg‚Ö‚Ì‘‘—MƒoƒCƒg”
+            // å—ä¿¡ã—ãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ã‚µã‚¤ã‚ºã¨ï¼Œ
+            // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã¸ã®ç·é€ä¿¡ãƒã‚¤ãƒˆæ•°
             int recvMsgSize      = 0;
             int totalBytesEchoed = 0;
             
-            // ƒNƒ‰ƒCƒAƒ“ƒg‚©‚çóM‚µ‚½ƒf[ƒ^‚ğ
-            // ƒGƒR[ƒf[ƒ^Ši”[—pƒoƒbƒt‚ÉŠi”[‚µC
-            // ‚»‚Ìƒf[ƒ^‚ğ‚»‚Ì‚Ü‚ÜƒNƒ‰ƒCƒAƒ“ƒg‚Ö‘—‚è•Ô‚·D
-            // ƒRƒlƒNƒVƒ‡ƒ“‚ªØ’f‚³‚ê‚é‚Ü‚ÅC‚±‚Ìˆ—‚ğŒJ‚è•Ô‚·D
+            // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã‹ã‚‰å—ä¿¡ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’
+            // ã‚¨ã‚³ãƒ¼ãƒ‡ãƒ¼ã‚¿æ ¼ç´ç”¨ãƒãƒƒãƒ•ã«æ ¼ç´ã—ï¼Œ
+            // ãã®ãƒ‡ãƒ¼ã‚¿ã‚’ãã®ã¾ã¾ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã¸é€ã‚Šè¿”ã™ï¼
+            // ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ãŒåˆ‡æ–­ã•ã‚Œã‚‹ã¾ã§ï¼Œã“ã®å‡¦ç†ã‚’ç¹°ã‚Šè¿”ã™ï¼
             while ((recvMsgSize = in.read(echoBuffer)) != -1) {
                 out.write(echoBuffer, 0, recvMsgSize);
                 totalBytesEchoed += recvMsgSize;
             }
-            // ‘‘—MƒoƒCƒg”‚ğƒƒOƒŠƒXƒg‚É’Ç‰Á‚·‚éD
-            logList.add("E‘‘—MƒoƒCƒg”F" + totalBytesEchoed);
+            // ç·é€ä¿¡ãƒã‚¤ãƒˆæ•°ã‚’ãƒ­ã‚°ãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹ï¼
+            logList.add("ãƒ»ç·é€ä¿¡ãƒã‚¤ãƒˆæ•°ï¼š" + totalBytesEchoed);
         }
         catch (IOException e) {
-            logList.add("E—áŠO”­¶F" + e.getMessage());
+            logList.add("ãƒ»ä¾‹å¤–ç™ºç”Ÿï¼š" + e.getMessage());
         }
         finally {
             try {
-                // ƒ\ƒPƒbƒg‚ğ•Â‚¶‚éD
+                // ã‚½ã‚±ãƒƒãƒˆã‚’é–‰ã˜ã‚‹ï¼
                 this.clntSock.close();
             }
             catch (IOException ex) {
-                logList.add("E—áŠO”­¶F" + ex.getMessage());
+                logList.add("ãƒ»ä¾‹å¤–ç™ºç”Ÿï¼š" + ex.getMessage());
             }
         }
-        // ƒƒOƒŠƒXƒg‚ğ‚Ü‚Æ‚ß‚Äo—Í‚·‚éD
+        // ãƒ­ã‚°ãƒªã‚¹ãƒˆã‚’ã¾ã¨ã‚ã¦å‡ºåŠ›ã™ã‚‹ï¼
         logger.printlist(logList);
     }
 }

@@ -4,41 +4,41 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * ƒRƒlƒNƒVƒ‡ƒ“–ˆ‚ÉV‚µ‚¢ƒXƒŒƒbƒh—˜—p‚·‚éƒfƒBƒXƒpƒbƒ`ƒƒ—p‚ÌƒNƒ‰ƒX
+ * ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³æ¯ã«æ–°ã—ã„ã‚¹ãƒ¬ãƒƒãƒ‰åˆ©ç”¨ã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ç”¨ã®ã‚¯ãƒ©ã‚¹
  */
 class ThreadPerConnectionDispatcher
     implements
         Dispatcher
 {
     /**
-     * ƒRƒlƒNƒVƒ‡ƒ“–ˆ‚ÉV‚µ‚¢ƒXƒŒƒbƒh‚ğŠ„‚è“–‚Ä‚é•û–@‚ğ—p‚¢‚Ä
-     * ƒfƒBƒXƒpƒbƒ`ˆ—‚ğŠJn‚·‚éD
+     * ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³æ¯ã«æ–°ã—ã„ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’å‰²ã‚Šå½“ã¦ã‚‹æ–¹æ³•ã‚’ç”¨ã„ã¦
+     * ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒå‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼
      */
     @Override
     public void startDispatching(
         ServerSocket servSock, ProtocolFactory factory, Logger logger
     )
     {
-        // ƒNƒ‰ƒCƒAƒ“ƒg‚Æ‚ÌƒRƒlƒNƒVƒ‡ƒ“–ˆ‚ÉƒXƒŒƒbƒh‚ğ¶¬‚µC
-        // ƒvƒƒgƒRƒ‹‚Ìˆ—‚ğŠJn‚·‚éD
+        // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã¨ã®ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³æ¯ã«ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ç”Ÿæˆã—ï¼Œ
+        // ãƒ—ãƒ­ãƒˆã‚³ãƒ«ã®å‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼
         while (true) {
             try {
-                // ƒNƒ‰ƒCƒAƒ“ƒg‚Æ‚ÌƒRƒlƒNƒVƒ‡ƒ“‚ÌŠm—§‚ğ‘Ò‚ÂD
+                // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã¨ã®ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã®ç¢ºç«‹ã‚’å¾…ã¤ï¼
                 Socket clntSock = servSock.accept();
                 
-                // ƒvƒƒgƒRƒ‹ˆ——p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+                // ãƒ—ãƒ­ãƒˆã‚³ãƒ«å‡¦ç†ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
                 Runnable protocol = factory.createProtocol(clntSock, logger);
                 
-                // ¶¬‚µ‚½ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì run() ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚·
-                // ƒXƒŒƒbƒh‚ğ¶¬‚µCƒvƒƒgƒRƒ‹‚Ìˆ—‚ğŠJn‚·‚éD
+                // ç”Ÿæˆã—ãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã® run() ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™
+                // ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ç”Ÿæˆã—ï¼Œãƒ—ãƒ­ãƒˆã‚³ãƒ«ã®å‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼
                 Thread thread = new Thread(protocol);
                 thread.start();
                 
-                // ˆ—‚ğŠJn‚µ‚½ƒXƒŒƒbƒh–¼‚ğƒƒO‚Éo—Í‚·‚éD
-                logger.printf("ˆ—ŠJniƒXƒŒƒbƒh–¼F%sj\n", thread.getName());
+                // å‡¦ç†ã‚’é–‹å§‹ã—ãŸã‚¹ãƒ¬ãƒƒãƒ‰åã‚’ãƒ­ã‚°ã«å‡ºåŠ›ã™ã‚‹ï¼
+                logger.printf("å‡¦ç†é–‹å§‹ï¼ˆã‚¹ãƒ¬ãƒƒãƒ‰åï¼š%sï¼‰\n", thread.getName());
             }
             catch (IOException ex) {
-                logger.printf("—áŠO”­¶F%s\n", ex.getMessage());
+                logger.printf("ä¾‹å¤–ç™ºç”Ÿï¼š%s\n", ex.getMessage());
             }
         }
     }

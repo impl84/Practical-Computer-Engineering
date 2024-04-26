@@ -2,14 +2,14 @@
 import java.util.Collection;
 
 /**
- * ƒRƒ“ƒ\[ƒ‹‚Ö‚ÌƒƒOo—Í—pƒNƒ‰ƒX
+ * ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸ã®ãƒ­ã‚°å‡ºåŠ›ç”¨ã‚¯ãƒ©ã‚¹
  */
 public class ConsoleLogger
     implements
         Logger
 {
     /**
-     * •¶š—ñ‚ğƒRƒ“ƒ\[ƒ‹‚Öo—Í‚·‚éD
+     * æ–‡å­—åˆ—ã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     @Override
     public synchronized void println(String line)
@@ -18,7 +18,7 @@ public class ConsoleLogger
     }
     
     /**
-     * ƒtƒH[ƒ}ƒbƒg‚ğw’è‚µ‚½•¶š—ñ‚ğƒRƒ“ƒ\[ƒ‹‚Öo—Í‚·‚éD
+     * ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’æŒ‡å®šã—ãŸæ–‡å­—åˆ—ã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     @Override
     public synchronized void printf(String format, Object... args)
@@ -27,7 +27,7 @@ public class ConsoleLogger
     }
     
     /**
-     * s‚ÌƒŠƒXƒg‚ğƒRƒ“ƒ\[ƒ‹‚Öo—Í‚·‚éD
+     * è¡Œã®ãƒªã‚¹ãƒˆã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     @Override
     public synchronized void printlist(Collection<String> entry)

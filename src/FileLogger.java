@@ -5,17 +5,17 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 /**
- * ƒtƒ@ƒCƒ‹‚Ö‚ÌƒƒOo—Í—pƒNƒ‰ƒX
+ * ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ­ã‚°å‡ºåŠ›ç”¨ã‚¯ãƒ©ã‚¹
  */
 public class FileLogger
     implements
         Logger
 {
-    // ƒCƒ“ƒXƒ^ƒ“ƒX•Ï”F
-    private final PrintWriter out;  // ƒtƒ@ƒCƒ‹‚Ö‚ÌƒƒOo—Í—p PrintWriter
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å¤‰æ•°ï¼š
+    private final PrintWriter out;  // ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ­ã‚°å‡ºåŠ›ç”¨ PrintWriter
     
     /**
-     * •¶š—ñ‚ğƒtƒ@ƒCƒ‹‚Öo—Í‚·‚éD
+     * æ–‡å­—åˆ—ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     public FileLogger(String filename)
         throws IOException
@@ -25,7 +25,7 @@ public class FileLogger
     }
     
     /**
-     * •¶š—ñ‚ğƒtƒ@ƒCƒ‹‚Öo—Í‚·‚éD
+     * æ–‡å­—åˆ—ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     @Override
     public synchronized void println(String line)
@@ -34,7 +34,7 @@ public class FileLogger
     }
     
     /**
-     * ƒtƒH[ƒ}ƒbƒg‚ğw’è‚µ‚½•¶š—ñ‚ğƒtƒ@ƒCƒ‹‚Öo—Í‚·‚éD
+     * ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’æŒ‡å®šã—ãŸæ–‡å­—åˆ—ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     @Override
     public synchronized void printf(String format, Object... args)
@@ -43,7 +43,7 @@ public class FileLogger
     }
     
     /**
-     * s‚ÌƒŠƒXƒg‚ğƒtƒ@ƒCƒ‹‚Öo—Í‚·‚éD
+     * è¡Œã®ãƒªã‚¹ãƒˆã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     @Override
     public synchronized void printlist(Collection<String> entry)
@@ -55,7 +55,7 @@ public class FileLogger
     }
     
     /**
-     * ƒtƒ@ƒCƒ‹‚Ö‚ÌƒƒOo—Í‚ğI—¹‚·‚éD
+     * ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ­ã‚°å‡ºåŠ›ã‚’çµ‚äº†ã™ã‚‹ï¼
      */
     public synchronized void close()
     {

@@ -14,26 +14,26 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
- * ƒ\ƒPƒbƒg”‚Æ“¯”‚ÌƒXƒŒƒbƒh‚ğ—˜—p‚µ‚Ä˜A‘±ƒf[ƒ^‚ğ‘—M‚·‚é‹@”\‚ÌÀ‘•
+ * ã‚½ã‚±ãƒƒãƒˆæ•°ã¨åŒæ•°ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’åˆ©ç”¨ã—ã¦é€£ç¶šãƒ‡ãƒ¼ã‚¿ã‚’é€ä¿¡ã™ã‚‹æ©Ÿèƒ½ã®å®Ÿè£…
  */
 class MultiThreadUploader
 {
-    // ƒCƒ“ƒXƒ^ƒ“ƒX•Ï”F
-    private final String servAddr;      // ƒT[ƒo‚ÌIPƒAƒhƒŒƒX(‚Ü‚½‚ÍƒzƒXƒg–¼)
-    private final int    servPort;		// ƒT[ƒo‚Ìƒ|[ƒg”Ô†
-    private final int    totalSize;		// ‘—M‚·‚é‘ƒf[ƒ^ƒTƒCƒY
-    private final int    bufferSize;	// ‘—Mƒoƒbƒtƒ@ƒTƒCƒY
-    private final int    numSockets;    // ƒ\ƒPƒbƒg”
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å¤‰æ•°ï¼š
+    private final String servAddr;      // ã‚µãƒ¼ãƒã®IPã‚¢ãƒ‰ãƒ¬ã‚¹(ã¾ãŸã¯ãƒ›ã‚¹ãƒˆå)
+    private final int    servPort;		// ã‚µãƒ¼ãƒã®ãƒãƒ¼ãƒˆç•ªå·
+    private final int    totalSize;		// é€ä¿¡ã™ã‚‹ç·ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º
+    private final int    bufferSize;	// é€ä¿¡ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+    private final int    numSockets;    // ã‚½ã‚±ãƒƒãƒˆæ•°
     
     /**
-     * MultiThreadUploader ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+     * MultiThreadUploader ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
      */
     MultiThreadUploader(
         String servAddr, int servPort, int totalSize, int bufferSize,
         int numSockets
     )
     {
-        // ‰º‹L‚ÌƒCƒ“ƒXƒ^ƒ“ƒX•Ï”‚ğCˆø”‚Å‰Šú‰»‚·‚éD
+        // ä¸‹è¨˜ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å¤‰æ•°ã‚’ï¼Œå¼•æ•°ã§åˆæœŸåŒ–ã™ã‚‹ï¼
         this.servAddr = servAddr;
         this.servPort = servPort;
         this.totalSize = totalSize;
@@ -42,29 +42,29 @@ class MultiThreadUploader
     }
     
     /**
-     * ‘—Mƒf[ƒ^ƒTƒCƒY•ª‚Ì‘—Mˆ—‚ğÀs‚·‚éD
+     * é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºåˆ†ã®é€ä¿¡å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ï¼
      */
     void upload()
         throws InterruptedException,
             ExecutionException
     {
-        // ƒ\ƒPƒbƒg–ˆ‚Ì‘—Mƒf[ƒ^ƒTƒCƒY‚ğ‹‚ß‚éD
-        // ‘‘—Mƒf[ƒ^ƒTƒCƒY‚ğƒ\ƒPƒbƒg”‚ÅŠ„‚Á‚½—]‚è‚ª‚ ‚éê‡‚ğ‘z’è‚µC
-        // ‚»‚Ì—]‚è‚ğŠÜ‚Ş‘—Mƒf[ƒ^ƒTƒCƒY‚à‹‚ß‚Ä‚¨‚­D
+        // ã‚½ã‚±ãƒƒãƒˆæ¯ã®é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã‚’æ±‚ã‚ã‚‹ï¼
+        // ç·é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã‚’ã‚½ã‚±ãƒƒãƒˆæ•°ã§å‰²ã£ãŸä½™ã‚ŠãŒã‚ã‚‹å ´åˆã‚’æƒ³å®šã—ï¼Œ
+        // ãã®ä½™ã‚Šã‚’å«ã‚€é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã‚‚æ±‚ã‚ã¦ãŠãï¼
         int sizeWithoutRemainder = this.totalSize / this.numSockets;
         int sizeWithRemainder    = sizeWithoutRemainder + this.totalSize % this.numSockets;
         
-        // ƒ\ƒPƒbƒg”‚Æ“¯”‚ÌƒXƒŒƒbƒh‚ğ—˜—p‚·‚é‚½‚ß‚ÌƒXƒŒƒbƒhƒv[ƒ‹‚ğ¶¬‚·‚éD
+        // ã‚½ã‚±ãƒƒãƒˆæ•°ã¨åŒæ•°ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã®ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«ã‚’ç”Ÿæˆã™ã‚‹ï¼
         int             numThreads = this.numSockets;
         ExecutorService threadPool = Executors.newFixedThreadPool(numThreads);
         
-        // ‘—Mˆ—ƒƒ\ƒbƒh‚ÌŠ®—¹‚ğŠm”F‚·‚é‚½‚ß‚Ì Future ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒŠƒXƒg‚ğ¶¬‚·‚éD
+        // é€ä¿¡å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã®å®Œäº†ã‚’ç¢ºèªã™ã‚‹ãŸã‚ã® Future ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒªã‚¹ãƒˆã‚’ç”Ÿæˆã™ã‚‹ï¼
         List<Future<Integer>> futureList = new ArrayList<Future<Integer>>();
         
-        // ƒ\ƒPƒbƒg”‚Æ“¯”‚ÌƒXƒŒƒbƒh‚Ö‘—Mˆ—ƒƒ\ƒbƒh‚ğ“n‚·‚½‚ß‚Ìƒ‹[ƒv
+        // ã‚½ã‚±ãƒƒãƒˆæ•°ã¨åŒæ•°ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã¸é€ä¿¡å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã‚’æ¸¡ã™ãŸã‚ã®ãƒ«ãƒ¼ãƒ—
         for (int i = 0; i < this.numSockets; i++) {
-            // ƒXƒŒƒbƒhƒv[ƒ‹“à‚ÌƒXƒŒƒbƒh‚Åˆ—‚·‚é‘—Mƒf[ƒ^ƒTƒCƒY‚ğŒˆ‚ß‚éD
-            // ÅŒã‚ÌƒXƒŒƒbƒh‚Ì‚İCã‹L‚Ì—]‚è‚ğŠÜ‚ŞƒTƒCƒY‚Ì‘—Mƒf[ƒ^‚ğˆ—‚·‚éD
+            // ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«å†…ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã§å‡¦ç†ã™ã‚‹é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã‚’æ±ºã‚ã‚‹ï¼
+            // æœ€å¾Œã®ã‚¹ãƒ¬ãƒƒãƒ‰ã®ã¿ï¼Œä¸Šè¨˜ã®ä½™ã‚Šã‚’å«ã‚€ã‚µã‚¤ã‚ºã®é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’å‡¦ç†ã™ã‚‹ï¼
             int sizePerSocket;
             if (i == this.numSockets - 1) {
                 sizePerSocket = sizeWithRemainder;
@@ -72,99 +72,99 @@ class MultiThreadUploader
             else {
                 sizePerSocket = sizeWithoutRemainder;
             }
-            // ƒXƒŒƒbƒhƒv[ƒ‹“à‚ÌƒXƒŒƒbƒh‚Ö‘—Mˆ—ƒƒ\ƒbƒh‚ğ“n‚·D
+            // ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«å†…ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã¸é€ä¿¡å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã‚’æ¸¡ã™ï¼
             Future<Integer> future = threadPool.submit(
                 () -> uploadPerSocket(sizePerSocket),
                 Integer.valueOf(sizePerSocket)
             );
-            // ƒXƒŒƒbƒhƒv[ƒ‹“à‚ÌƒXƒŒƒbƒh‚ÅÀŒø‚³‚ê‚é‘—Mˆ—ƒƒ\ƒbƒh‚Ì
-            // Š®—¹‚ğŠm”F‚·‚é‚½‚ß‚Ì Future ƒCƒ“ƒXƒ^ƒ“ƒX‚ğƒŠƒXƒg‚Ö’Ç‰Á‚·‚éD
+            // ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«å†…ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã§å®ŸåŠ¹ã•ã‚Œã‚‹é€ä¿¡å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã®
+            // å®Œäº†ã‚’ç¢ºèªã™ã‚‹ãŸã‚ã® Future ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ãƒªã‚¹ãƒˆã¸è¿½åŠ ã™ã‚‹ï¼
             futureList.add(future);
         }
         try {
-            // Future ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒŠƒXƒg‚ğ‘–¸‚µC
-            // ŠY“–‚·‚éƒXƒŒƒbƒh‚É‚¨‚¯‚é‘—Mˆ—‚ÌŠ®—¹‚ğŠm”F‚·‚éD
+            // Future ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒªã‚¹ãƒˆã‚’èµ°æŸ»ã—ï¼Œ
+            // è©²å½“ã™ã‚‹ã‚¹ãƒ¬ãƒƒãƒ‰ã«ãŠã‘ã‚‹é€ä¿¡å‡¦ç†ã®å®Œäº†ã‚’ç¢ºèªã™ã‚‹ï¼
             for (Future<Integer> future : futureList) {
-                // ‘—Mˆ—ƒƒ\ƒbƒh“à‚Å RuntimeException ‚ª”­¶‚µ‚Ä‚¢‚½ê‡C
-                // ‰º‹L get ƒƒ\ƒbƒh‚Í ExecutionException ‚ğ“Š‚°‚éD
+                // é€ä¿¡å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰å†…ã§ RuntimeException ãŒç™ºç”Ÿã—ã¦ã„ãŸå ´åˆï¼Œ
+                // ä¸‹è¨˜ get ãƒ¡ã‚½ãƒƒãƒ‰ã¯ ExecutionException ã‚’æŠ•ã’ã‚‹ï¼
                 Integer size = future.get();
                 // InterruptedException, ExecutionException
                 
-                // ‘—Mˆ—ƒƒ\ƒbƒh‚ªŒ‹‰Ê‚Æ‚µ‚Ä•Ô‚·C
-                // ƒ\ƒPƒbƒg–ˆ‚Ì‘—Mƒf[ƒ^ƒTƒCƒY‚Ì’l‚ğŠm”F‚·‚éD
+                // é€ä¿¡å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ãŒçµæœã¨ã—ã¦è¿”ã™ï¼Œ
+                // ã‚½ã‚±ãƒƒãƒˆæ¯ã®é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã®å€¤ã‚’ç¢ºèªã™ã‚‹ï¼
                 if ((size != sizeWithoutRemainder) && (size != sizeWithRemainder)) {
-                    throw new Error("‘—Mˆ—ƒƒ\ƒbƒh‚ª—\Šú‚¹‚ÊŒ‹‰Ê‚ğ•Ô‚µ‚Ü‚µ‚½D");
+                    throw new Error("é€ä¿¡å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ãŒäºˆæœŸã›ã¬çµæœã‚’è¿”ã—ã¾ã—ãŸï¼");
                 }
             }
         }
         finally {
-            // ƒXƒŒƒbƒhƒv[ƒ‹‚ğI—¹‚³‚¹‚éD
+            // ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«ã‚’çµ‚äº†ã•ã›ã‚‹ï¼
             shutdownAndAwaitTermination(threadPool);
         }
     }
     
     /**
-     * ƒ\ƒPƒbƒg–ˆ‚Ì‘—Mˆ—‚ğÀs‚·‚éD ‚±‚Ìƒƒ\ƒbƒh‚ÍƒXƒŒƒbƒhƒv[ƒ‹“à‚ÌƒXƒŒƒbƒh‚©‚çŒÄ‚Î‚ê‚éD
+     * ã‚½ã‚±ãƒƒãƒˆæ¯ã®é€ä¿¡å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ï¼ ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ—ãƒ¼ãƒ«å†…ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‹ã‚‰å‘¼ã°ã‚Œã‚‹ï¼
      */
     private void uploadPerSocket(int sizePerSocket)
         throws RuntimeException
     {
-        // —^‚¦‚ç‚ê‚Ä‚¢‚éƒoƒbƒtƒ@ƒTƒCƒY +4ƒoƒCƒg•ª‚Ì‘—Mƒoƒbƒtƒ@‚ğ¶¬‚µC—”‚Å‰Šú‰»‚·‚éD
+        // ä¸ãˆã‚‰ã‚Œã¦ã„ã‚‹ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º +4ãƒã‚¤ãƒˆåˆ†ã®é€ä¿¡ãƒãƒƒãƒ•ã‚¡ã‚’ç”Ÿæˆã—ï¼Œä¹±æ•°ã§åˆæœŸåŒ–ã™ã‚‹ï¼
         int    allocSize  = this.bufferSize + 4;
         byte[] sendBuffer = new byte[allocSize];
         Random rand       = new Random(System.currentTimeMillis());
         rand.nextBytes(sendBuffer);
         
-        // ƒ\ƒPƒbƒg–ˆ‚Ì‘—Mƒf[ƒ^ƒTƒCƒY‚ğ‘—Mƒoƒbƒtƒ@‚Ìæ“ª 4ƒoƒCƒg‚ÖŠi”[‚·‚éD
+        // ã‚½ã‚±ãƒƒãƒˆæ¯ã®é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã‚’é€ä¿¡ãƒãƒƒãƒ•ã‚¡ã®å…ˆé ­ 4ãƒã‚¤ãƒˆã¸æ ¼ç´ã™ã‚‹ï¼
         byte[] bytes = ByteBuffer.allocate(4).putInt(sizePerSocket).array();
         System.arraycopy(bytes, 0, sendBuffer, 0, 4);
         
         Socket socket = null;
         try {
-            // ƒ\ƒPƒbƒg‚ğ¶¬‚µC“üo—ÍƒXƒgƒŠ[ƒ€‚ğæ“¾‚·‚éD
+            // ã‚½ã‚±ãƒƒãƒˆã‚’ç”Ÿæˆã—ï¼Œå…¥å‡ºåŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’å–å¾—ã™ã‚‹ï¼
             socket = new Socket(this.servAddr, this.servPort);
             InputStream  in  = socket.getInputStream();
             OutputStream out = socket.getOutputStream();
             
-            boolean isFirstData = true;		// Å‰‚É‘—M‚·‚éƒf[ƒ^‚©”Û‚©‚ğ¦‚·ƒtƒ‰ƒO
-            int     remainder   = sizePerSocket;	// ‘—M‚·‚×‚«ƒf[ƒ^‚Ìc—Ê
+            boolean isFirstData = true;		// æœ€åˆã«é€ä¿¡ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã‹å¦ã‹ã‚’ç¤ºã™ãƒ•ãƒ©ã‚°
+            int     remainder   = sizePerSocket;	// é€ä¿¡ã™ã¹ããƒ‡ãƒ¼ã‚¿ã®æ®‹é‡
             
-            // ƒ\ƒPƒbƒg–ˆ‚Ì‘—Mƒf[ƒ^‚ğCƒoƒbƒtƒ@ƒTƒCƒY•ª‚Ìƒf[ƒ^–ˆ‚ÉƒT[ƒo‚Ö‘—M‚·‚éD
+            // ã‚½ã‚±ãƒƒãƒˆæ¯ã®é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚’ï¼Œãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºåˆ†ã®ãƒ‡ãƒ¼ã‚¿æ¯ã«ã‚µãƒ¼ãƒã¸é€ä¿¡ã™ã‚‹ï¼
             for (;;) {
-                // ‘—Mƒf[ƒ^’·‚ğ‹‚ß‚éD
+                // é€ä¿¡ãƒ‡ãƒ¼ã‚¿é•·ã‚’æ±‚ã‚ã‚‹ï¼
                 int sendLength = remainder > this.bufferSize ? this.bufferSize : remainder;
                 
-                // ƒT[ƒo‚Öƒf[ƒ^‚ğ‘—M‚·‚éD
+                // ã‚µãƒ¼ãƒã¸ãƒ‡ãƒ¼ã‚¿ã‚’é€ä¿¡ã™ã‚‹ï¼
                 if (isFirstData) {
-                    // Å‰‚É‘—M‚·‚éƒf[ƒ^‚ÍC
-                    // ƒ\ƒPƒbƒg–ˆ‚Ì‘—Mƒf[ƒ^ƒTƒCƒY‚ªæ“ª 4ƒoƒCƒg‚ÉŠi”[‚³‚ê‚Ä‚¢‚éƒf[ƒ^D
+                    // æœ€åˆã«é€ä¿¡ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã¯ï¼Œ
+                    // ã‚½ã‚±ãƒƒãƒˆæ¯ã®é€ä¿¡ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºãŒå…ˆé ­ 4ãƒã‚¤ãƒˆã«æ ¼ç´ã•ã‚Œã¦ã„ã‚‹ãƒ‡ãƒ¼ã‚¿ï¼
                     out.write(sendBuffer, 0, sendLength);
                     isFirstData = false;
                 }
                 else {
-                    // Å‰‚É‘—M‚·‚éƒf[ƒ^ˆÈŠO‚ÍC‘S‚Ä—”‚ªŠi”[‚³‚ê‚Ä‚¢‚éƒf[ƒ^D
+                    // æœ€åˆã«é€ä¿¡ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ä»¥å¤–ã¯ï¼Œå…¨ã¦ä¹±æ•°ãŒæ ¼ç´ã•ã‚Œã¦ã„ã‚‹ãƒ‡ãƒ¼ã‚¿ï¼
                     out.write(sendBuffer, 4, sendLength);
                 }
                 out.flush();
                 
-                // ‘—M‚·‚×‚«ƒf[ƒ^‚Ìc—Ê‚ª 0 ‚Å‚ ‚ê‚Îƒ‹[ƒv‚ğ”²‚¯‚éD
+                // é€ä¿¡ã™ã¹ããƒ‡ãƒ¼ã‚¿ã®æ®‹é‡ãŒ 0 ã§ã‚ã‚Œã°ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹ï¼
                 remainder -= sendLength;
                 if (remainder <= 0) {
                     break;
                 }
             }
-            // ƒT[ƒo‘¤‚ªƒRƒlƒNƒVƒ‡ƒ“‚ğØ’f‚·‚é‚Ü‚Å‘Ò‚ÂD
+            // ã‚µãƒ¼ãƒå´ãŒã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã‚’åˆ‡æ–­ã™ã‚‹ã¾ã§å¾…ã¤ï¼
             byte[] recvBuffer = new byte[4];
             while (in.read(recvBuffer) != -1) {
                 ;
             }
         }
         catch (IOException ex) {
-            // —áŠO‚ª”­¶‚µ‚½ê‡C‚»‚Ì—áŠO‚ğŠÜ‚Ş RuntimeException ‚ğ“Š‚°‚éD
+            // ä¾‹å¤–ãŒç™ºç”Ÿã—ãŸå ´åˆï¼Œãã®ä¾‹å¤–ã‚’å«ã‚€ RuntimeException ã‚’æŠ•ã’ã‚‹ï¼
             throw new RuntimeException(ex);
         }
         finally {
-            // ƒ\ƒPƒbƒg‚ğ•Â‚¶‚éD
+            // ã‚½ã‚±ãƒƒãƒˆã‚’é–‰ã˜ã‚‹ï¼
             try {
                 if (socket != null) {
                     socket.close();
@@ -177,38 +177,38 @@ class MultiThreadUploader
     }
     
     /**
-     * ExecutorService ‚ğ2’iŠK‚ÅƒVƒƒƒbƒgƒ_ƒEƒ“‚·‚éD
+     * ExecutorService ã‚’2æ®µéšã§ã‚·ãƒ£ãƒƒãƒˆãƒ€ã‚¦ãƒ³ã™ã‚‹ï¼
      */
     private void shutdownAndAwaitTermination(ExecutorService threadPool)
     {
-        // Å‰‚É shutdown ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µ‚Ä’…Mƒ^ƒXƒN‚ğ‹‘”Û‚·‚éD
+        // æœ€åˆã« shutdown ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã—ã¦ç€ä¿¡ã‚¿ã‚¹ã‚¯ã‚’æ‹’å¦ã™ã‚‹ï¼
         threadPool.shutdown();
         try {
-            // Às’†‚Ìƒ^ƒXƒN‚ÌI—¹‚ğ‘Ò‚ÂD
+            // å®Ÿè¡Œä¸­ã®ã‚¿ã‚¹ã‚¯ã®çµ‚äº†ã‚’å¾…ã¤ï¼
             if (!threadPool.awaitTermination(60, TimeUnit.SECONDS)) {
                 // InterruptedException
                 
-                // Às’†‚Ìƒ^ƒXƒN‚ÌI—¹‘O‚É‘Ò‚¿ŠÔ‚ªØ‚ê‚½‚Ì‚ÅC
-                // Às’†‚Ìƒ^ƒXƒN‚·‚×‚Ä‚Ì’â~‚ğ‚İC‘Ò‹@’†‚Ìƒ^ƒXƒN‚Ìˆ—‚ğ’â~‚·‚éD
-                // ‚»‚Ìã‚ÅCÄ“xCÀs’†‚Ìƒ^ƒXƒN‚ÌI—¹‚ğ‘Ò‚ÂD
+                // å®Ÿè¡Œä¸­ã®ã‚¿ã‚¹ã‚¯ã®çµ‚äº†å‰ã«å¾…ã¡æ™‚é–“ãŒåˆ‡ã‚ŒãŸã®ã§ï¼Œ
+                // å®Ÿè¡Œä¸­ã®ã‚¿ã‚¹ã‚¯ã™ã¹ã¦ã®åœæ­¢ã‚’è©¦ã¿ï¼Œå¾…æ©Ÿä¸­ã®ã‚¿ã‚¹ã‚¯ã®å‡¦ç†ã‚’åœæ­¢ã™ã‚‹ï¼
+                // ãã®ä¸Šã§ï¼Œå†åº¦ï¼Œå®Ÿè¡Œä¸­ã®ã‚¿ã‚¹ã‚¯ã®çµ‚äº†ã‚’å¾…ã¤ï¼
                 threadPool.shutdownNow();
                 if (!threadPool.awaitTermination(60, TimeUnit.SECONDS)) {
                     // InterruptedException
                     
-                    // Às’†‚Ìƒ^ƒXƒN‚ÌI—¹‘O‚É‘Ò‚¿ŠÔ‚ªØ‚ê‚½D
-                    // RuntimeException ‚ğ“Š‚°‚ÄCƒVƒƒƒbƒgƒ_ƒEƒ“ˆ—‚ğI—¹‚·‚éD
+                    // å®Ÿè¡Œä¸­ã®ã‚¿ã‚¹ã‚¯ã®çµ‚äº†å‰ã«å¾…ã¡æ™‚é–“ãŒåˆ‡ã‚ŒãŸï¼
+                    // RuntimeException ã‚’æŠ•ã’ã¦ï¼Œã‚·ãƒ£ãƒƒãƒˆãƒ€ã‚¦ãƒ³å‡¦ç†ã‚’çµ‚äº†ã™ã‚‹ï¼
                     throw new RuntimeException(
-                        "ExecutorService ‚ğ³í‚ÉI—¹‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½D"
+                        "ExecutorService ã‚’æ­£å¸¸ã«çµ‚äº†ã§ãã¾ã›ã‚“ã§ã—ãŸï¼"
                     );
                 }
             }
         }
         catch (InterruptedException ex) {
-            // InterruptedException ‚ª”­¶‚µ‚½D
-            // Às’†‚Ìƒ^ƒXƒN‚·‚×‚Ä‚Ì’â~‚ğ‚İC‘Ò‹@’†‚Ìƒ^ƒXƒN‚Ìˆ—‚ğ’â~‚·‚éD
+            // InterruptedException ãŒç™ºç”Ÿã—ãŸï¼
+            // å®Ÿè¡Œä¸­ã®ã‚¿ã‚¹ã‚¯ã™ã¹ã¦ã®åœæ­¢ã‚’è©¦ã¿ï¼Œå¾…æ©Ÿä¸­ã®ã‚¿ã‚¹ã‚¯ã®å‡¦ç†ã‚’åœæ­¢ã™ã‚‹ï¼
             threadPool.shutdownNow();
             
-            // Œ»İ‚ÌƒXƒŒƒbƒh‚ÌŠ„‚è‚İƒXƒe[ƒ^ƒX‚ğ•Û‚·‚éD
+            // ç¾åœ¨ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã®å‰²ã‚Šè¾¼ã¿ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ä¿æŒã™ã‚‹ï¼
             Thread.currentThread().interrupt();
         }
     }

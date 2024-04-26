@@ -2,12 +2,12 @@
 import java.net.Socket;
 
 /**
- * ƒvƒƒgƒRƒ‹ƒtƒ@ƒNƒgƒŠ—p‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX
+ * ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒ•ã‚¡ã‚¯ãƒˆãƒªç”¨ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
  */
 public interface ProtocolFactory
 {
     /**
-     * ƒvƒƒgƒRƒ‹ˆ——p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µC Runnable ƒCƒ“ƒ^[ƒtƒF[ƒX‚Æ‚µ‚Ä•Ô‚·D
+     * ãƒ—ãƒ­ãƒˆã‚³ãƒ«å‡¦ç†ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ï¼Œ Runnable ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã¨ã—ã¦è¿”ã™ï¼
      */
     public Runnable createProtocol(Socket clntSock, Logger logger);
 }

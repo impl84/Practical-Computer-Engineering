@@ -2,22 +2,22 @@
 import java.util.Collection;
 
 /**
- * ƒƒOo—Í—p‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX
+ * ãƒ­ã‚°å‡ºåŠ›ç”¨ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
  */
 public interface Logger
 {
     /**
-     * •¶š—ñ‚ğo—Í‚·‚éD
+     * æ–‡å­—åˆ—ã‚’å‡ºåŠ›ã™ã‚‹ï¼
      */
     public void println(String line);
     
     /**
-     * ƒtƒH[ƒ}ƒbƒg‚ğw’è‚µ‚½•¶š—ñ‚ğo—Í‚·‚éD
+     * ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’æŒ‡å®šã—ãŸæ–‡å­—åˆ—ã‚’å‡ºåŠ›ã™ã‚‹ï¼
      */
     public void printf(String format, Object... args);
     
     /**
-     * s‚ÌƒŠƒXƒg‚ğo—Í‚·‚éD
+     * è¡Œã®ãƒªã‚¹ãƒˆã‚’å‡ºåŠ›ã™ã‚‹ï¼
      */
     public void printlist(Collection<String> entry);
 }

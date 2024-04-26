@@ -3,75 +3,75 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
- * ‘—Mƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚ğ•Ï‰»‚³‚¹C ˜A‘±ƒf[ƒ^‚ğ‘—M‚·‚éƒNƒ‰ƒCƒAƒ“ƒg‘¤‚Ì‹@”\‚ÌÀ‘•
+ * é€ä¿¡ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã‚’å¤‰åŒ–ã•ã›ï¼Œ é€£ç¶šãƒ‡ãƒ¼ã‚¿ã‚’é€ä¿¡ã™ã‚‹ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆå´ã®æ©Ÿèƒ½ã®å®Ÿè£…
  */
 public class UploadExperiment
 {
-    // ƒNƒ‰ƒX•Ï”i’è”jF
+    // ã‚¯ãƒ©ã‚¹å¤‰æ•°ï¼ˆå®šæ•°ï¼‰ï¼š
     private static final int KILO_BYTE = 1024;
     private static final int MEGA_BYTE = KILO_BYTE * 1024;
     private static final int GIGA_BYTE = MEGA_BYTE * 1024;
     
-    // ‘—M‚·‚é‘ƒf[ƒ^ƒTƒCƒY‚Æ‘—Ms‰ñ”
+    // é€ä¿¡ã™ã‚‹ç·ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã¨é€ä¿¡è©¦è¡Œå›æ•°
     private static final int TOTAL_SIZE = 1 * MEGA_BYTE;
     private static final int TRY_COUNT  = 10;
     
-    // ‘—Mƒoƒbƒtƒ@ƒTƒCƒY‚Ì”z—ñ
+    // é€ä¿¡ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®é…åˆ—
     private static final int[] BUF_SIZE_ARRAY = {
         8, 16, 32, 64, 128, 256
     };
     
-    // “¯‚É—˜—p‚·‚éƒ\ƒPƒbƒg”‚Ì”z—ñ
+    // åŒæ™‚ã«åˆ©ç”¨ã™ã‚‹ã‚½ã‚±ãƒƒãƒˆæ•°ã®é…åˆ—
     private static final int[] NUM_SOCKS_ARRAY = {
         1, 2, 3, 4, 5, 6, 7, 8
     };
     
     /**
-     * ƒT[ƒo‚Ö‚Ìƒf[ƒ^‘—MÀŒ±—pƒNƒ‰ƒCƒAƒ“ƒg‚ğ—˜—p‚·‚é‚½‚ß‚Ì main ƒƒ\ƒbƒh
+     * ã‚µãƒ¼ãƒã¸ã®ãƒ‡ãƒ¼ã‚¿é€ä¿¡å®Ÿé¨“ç”¨ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã® main ãƒ¡ã‚½ãƒƒãƒ‰
      */
     public static void main(String[] args)
     {
-        // ˆø”‚Ì”‚ğŠm”F‚·‚éD
+        // å¼•æ•°ã®æ•°ã‚’ç¢ºèªã™ã‚‹ï¼
         if (args.length != 2) {
             System.out.println("Parameters: <Server> <Port>");
             return;
         }
         try {
-            // ƒT[ƒo–¼(‚Ü‚½‚ÍIPƒAƒhƒŒƒX)‚ÆƒT[ƒo‚Ìƒ|[ƒg”Ô†‚ğˆø”‚©‚çæ“¾‚·‚éD
+            // ã‚µãƒ¼ãƒå(ã¾ãŸã¯IPã‚¢ãƒ‰ãƒ¬ã‚¹)ã¨ã‚µãƒ¼ãƒã®ãƒãƒ¼ãƒˆç•ªå·ã‚’å¼•æ•°ã‹ã‚‰å–å¾—ã™ã‚‹ï¼
             String servAddr = args[0];
             int    servPort = Integer.parseInt(args[1]);
             
-            // ƒRƒ“ƒ\[ƒ‹‚Ö‚ÌƒƒOo—Í—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+            // ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸ã®ãƒ­ã‚°å‡ºåŠ›ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
             ConsoleLogger clog = new ConsoleLogger();
             
-            // ƒtƒ@ƒCƒ‹‚Ö‚ÌƒƒOo—Í—p‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+            // ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ­ã‚°å‡ºåŠ›ç”¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
             FileLogger flog = new FileLogger(
                 String.format("log_%d.txt", System.currentTimeMillis())
             );
             // IOException
             
-            // ƒf[ƒ^‘—MÀŒ±—pƒNƒ‰ƒCƒAƒ“ƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+            // ãƒ‡ãƒ¼ã‚¿é€ä¿¡å®Ÿé¨“ç”¨ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
             UploadExperiment client = new UploadExperiment(
                 servAddr, servPort, clog, flog
             );
             
-            // ƒT[ƒo‚Ö‚ÌƒAƒbƒvƒ[ƒh‚ğŒJ‚è•Ô‚µCŒ‹‰Ê‚ğo—Í‚·‚éD
+            // ã‚µãƒ¼ãƒã¸ã®ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã‚’ç¹°ã‚Šè¿”ã—ï¼Œçµæœã‚’å‡ºåŠ›ã™ã‚‹ï¼
             client.execute();
         }
         catch (Exception ex) {
-            System.out.println("—áŠO”­¶F" + ex.getMessage());
+            System.out.println("ä¾‹å¤–ç™ºç”Ÿï¼š" + ex.getMessage());
             ex.printStackTrace();
         }
     }
     
-    // ƒCƒ“ƒXƒ^ƒ“ƒX•Ï”F
-    private final String        servAddr;   // ƒT[ƒo‚ÌIPƒAƒhƒŒƒX(‚Ü‚½‚ÍƒzƒXƒg–¼)
-    private final int           servPort;   // ƒT[ƒo‚Ìƒ|[ƒg”Ô†
-    private final ConsoleLogger clog;       // ƒRƒ“ƒ\[ƒ‹‚Ö‚Ìo—Í—p Logger
-    private final FileLogger    flog;       // ƒtƒ@ƒCƒ‹‚Ö‚Ìo—Í—p Logger
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å¤‰æ•°ï¼š
+    private final String        servAddr;   // ã‚µãƒ¼ãƒã®IPã‚¢ãƒ‰ãƒ¬ã‚¹(ã¾ãŸã¯ãƒ›ã‚¹ãƒˆå)
+    private final int           servPort;   // ã‚µãƒ¼ãƒã®ãƒãƒ¼ãƒˆç•ªå·
+    private final ConsoleLogger clog;       // ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸ã®å‡ºåŠ›ç”¨ Logger
+    private final FileLogger    flog;       // ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®å‡ºåŠ›ç”¨ Logger
     
     /**
-     * UploadExperiment ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+     * UploadExperiment ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
      */
     UploadExperiment(
         String servAddr, int servPort, ConsoleLogger clog, FileLogger flog
@@ -84,143 +84,143 @@ public class UploadExperiment
     }
     
     /**
-     * ƒT[ƒo‚Ö‚ÌƒAƒbƒvƒ[ƒh‚ğŒJ‚è•Ô‚µCŒ‹‰Ê‚ğo—Í‚·‚éD
+     * ã‚µãƒ¼ãƒã¸ã®ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã‚’ç¹°ã‚Šè¿”ã—ï¼Œçµæœã‚’å‡ºåŠ›ã™ã‚‹ï¼
      */
     void execute()
     {
-        // ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚ğ•Ï‰»‚³‚¹C
-        // TOTAL_SIZE ƒoƒCƒg•ª‚Ìƒf[ƒ^‚ğ TRY_COUNT ‰ñƒT[ƒo‚ÖƒAƒbƒvƒ[ƒh‚µC
-        // ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”–ˆ‚ÌƒAƒbƒvƒ[ƒhŠÔ(TRY_COUNT ‰ñ•ª‚Ì”z—ñ)‚ğæ“¾‚·‚éD
+        // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã‚’å¤‰åŒ–ã•ã›ï¼Œ
+        // TOTAL_SIZE ãƒã‚¤ãƒˆåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’ TRY_COUNT å›ã‚µãƒ¼ãƒã¸ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã—ï¼Œ
+        // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°æ¯ã®ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰æ™‚é–“(TRY_COUNT å›åˆ†ã®é…åˆ—)ã‚’å–å¾—ã™ã‚‹ï¼
         Object[][] timesArray = uploadAll();
         
-        // ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”–ˆ‚ÌƒXƒ‹[ƒvƒbƒg(TRY_COUNT ‰ñ•ª‚Ì”z—ñ)‚ğŠi”[‚·‚é”z—ñ
+        // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°æ¯ã®ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆ(TRY_COUNT å›åˆ†ã®é…åˆ—)ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
         Object[][] throughputsArray = new Object[BUF_SIZE_ARRAY.length][NUM_SOCKS_ARRAY.length];
         
-        // •½‹ÏƒXƒ‹[ƒvƒbƒg‚ğŠi”[‚·‚é”z—ñ‚ÆƒXƒ‹[ƒvƒbƒg‚Ì•W€•Î·‚ğŠi”[‚·‚é”z—ñ
+        // å¹³å‡ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã‚’æ ¼ç´ã™ã‚‹é…åˆ—ã¨ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®æ¨™æº–åå·®ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
         int[][] averages_mbps = new int[BUF_SIZE_ARRAY.length][NUM_SOCKS_ARRAY.length];
         int[][] stdDevs_mbps  = new int[BUF_SIZE_ARRAY.length][NUM_SOCKS_ARRAY.length];
         
-        // ƒoƒbƒtƒ@ƒTƒCƒY‚Ì”z—ñ‚Æƒ\ƒPƒbƒg”‚Ì”z—ñ‚ğ‘–¸‚·‚éD
+        // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®é…åˆ—ã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã®é…åˆ—ã‚’èµ°æŸ»ã™ã‚‹ï¼
         for (int bs = 0; bs < BUF_SIZE_ARRAY.length; bs++) {
             for (int ns = 0; ns < NUM_SOCKS_ARRAY.length; ns++) {
                 
-                // Œo‰ßŠÔ(ms)‚Ì”z—ñ‚ğæ“¾‚µCƒXƒ‹[ƒvƒbƒg(mbps)‚ğ‹‚ß‚éD
+                // çµŒéæ™‚é–“(ms)ã®é…åˆ—ã‚’å–å¾—ã—ï¼Œã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆ(mbps)ã‚’æ±‚ã‚ã‚‹ï¼
                 long[] elapsedTimes_ms  = (long[])timesArray[bs][ns];
                 int[]  throughputs_mbps = calcThroughput(elapsedTimes_ms);
                 throughputsArray[bs][ns] = throughputs_mbps;
                 
-                // •½‹ÏƒXƒ‹[ƒvƒbƒg‚ÆƒXƒ‹[ƒvƒbƒg‚Ì•W€•Î·‚ğ‹‚ß‚éD
+                // å¹³å‡ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã¨ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®æ¨™æº–åå·®ã‚’æ±‚ã‚ã‚‹ï¼
                 averages_mbps[bs][ns] = calcAverage(throughputs_mbps);
                 stdDevs_mbps[bs][ns] = calcStdDev(
                     averages_mbps[bs][ns], throughputs_mbps
                 );
             }
         }
-        // ‰º‹L(a)`(c)‚ğƒtƒ@ƒCƒ‹‚Öo—Í‚·‚éD
-        // (a) •½‹ÏƒXƒ‹[ƒvƒbƒg
-        // (b) ƒXƒ‹[ƒvƒbƒg‚Ì•W€•Î·
-        // (c) ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”–ˆ‚ÌƒXƒ‹[ƒvƒbƒg(TRY_COUNT ‰ñ•ª‚Ì’l)
+        // ä¸‹è¨˜(a)ã€œ(c)ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
+        // (a) å¹³å‡ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆ
+        // (b) ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®æ¨™æº–åå·®
+        // (c) ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°æ¯ã®ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆ(TRY_COUNT å›åˆ†ã®å€¤)
         writeResults(averages_mbps);
         writeResults(stdDevs_mbps);
         writeAllThroughputs(throughputsArray);
         
-        // ƒtƒ@ƒCƒ‹‚Ö‚ÌƒƒOo—Í‚ğI—¹‚·‚éD
+        // ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ­ã‚°å‡ºåŠ›ã‚’çµ‚äº†ã™ã‚‹ï¼
         this.flog.close();
     }
     
     /**
-     * ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚ğ•Ï‰»‚³‚¹C TOTAL_SIZE ƒoƒCƒg•ª‚Ìƒf[ƒ^‚ğ TRY_COUNT ‰ñƒT[ƒo‚ÖƒAƒbƒvƒ[ƒh‚·‚éD
+     * ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã‚’å¤‰åŒ–ã•ã›ï¼Œ TOTAL_SIZE ãƒã‚¤ãƒˆåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’ TRY_COUNT å›ã‚µãƒ¼ãƒã¸ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ï¼
      */
     private Object[][] uploadAll()
     {
-        // ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”–ˆ‚Ì
-        // ƒAƒbƒvƒ[ƒhŠÔ‚Ì”z—ñ(TRY_COUNT‰ñ•ª)‚ğŠi”[‚·‚é‚½‚ß‚Ì”z—ñ‚ğ¶¬‚·‚éD
+        // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°æ¯ã®
+        // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰æ™‚é–“ã®é…åˆ—(TRY_COUNTå›åˆ†)ã‚’æ ¼ç´ã™ã‚‹ãŸã‚ã®é…åˆ—ã‚’ç”Ÿæˆã™ã‚‹ï¼
         Object[][] timesArray = new Object[BUF_SIZE_ARRAY.length][NUM_SOCKS_ARRAY.length];
         
-        // ƒoƒbƒtƒ@ƒTƒCƒY‚Ì”z—ñ‚Æƒ\ƒPƒbƒg”‚Ì”z—ñ‚ğ‘–¸‚·‚éD
+        // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®é…åˆ—ã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã®é…åˆ—ã‚’èµ°æŸ»ã™ã‚‹ï¼
         for (int bs = 0; bs < BUF_SIZE_ARRAY.length; bs++) {
             for (int ns = 0; ns < NUM_SOCKS_ARRAY.length; ns++) {
                 
-                // ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚Ì”z—ñ‚Ì—v‘f‚Å‚ ‚é
-                // ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚ğæ“¾‚·‚éD
+                // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã®é…åˆ—ã®è¦ç´ ã§ã‚ã‚‹
+                // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã‚’å–å¾—ã™ã‚‹ï¼
                 int bufferSize = BUF_SIZE_ARRAY[bs];
                 int numSockets = NUM_SOCKS_ARRAY[ns];
                 
-                // æ“¾‚µ‚½ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚ÅC
-                // TOTAL_SIZE ƒoƒCƒg•ª‚Ìƒf[ƒ^‚ğ TRY_COUNT ‰ñ
-                // ƒT[ƒo‚ÖƒAƒbƒvƒ[ƒh‚µC
-                // ‚»‚ÌŠe‰ñ‚ÌŒo‰ßŠÔ‚ğæ“¾‚·‚éD
+                // å–å¾—ã—ãŸãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã§ï¼Œ
+                // TOTAL_SIZE ãƒã‚¤ãƒˆåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’ TRY_COUNT å›
+                // ã‚µãƒ¼ãƒã¸ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã—ï¼Œ
+                // ãã®å„å›ã®çµŒéæ™‚é–“ã‚’å–å¾—ã™ã‚‹ï¼
                 long[] elapsedTimes_ms = upload(bufferSize, numSockets);
                 
-                // Œo‰ßŠÔ‚Ì”z—ñ‚ğ•Û‚µ‚Ä‚¨‚­D
+                // çµŒéæ™‚é–“ã®é…åˆ—ã‚’ä¿æŒã—ã¦ãŠãï¼
                 timesArray[bs][ns] = elapsedTimes_ms;
             }
         }
-        // ‘SŒv‘ªŒ‹‰Ê‚ğŠÜ‚Ş”z—ñ‚ğ•Ô‚·D
+        // å…¨è¨ˆæ¸¬çµæœã‚’å«ã‚€é…åˆ—ã‚’è¿”ã™ï¼
         return timesArray;
     }
     
     /**
-     * —^‚¦‚ç‚ê‚½ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚ÅC TOTAL_SIZE ƒoƒCƒg•ª‚Ìƒf[ƒ^‚ğ TRY_COUNT ‰ñƒT[ƒo‚ÖƒAƒbƒvƒ[ƒh‚·‚éD
+     * ä¸ãˆã‚‰ã‚ŒãŸãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã§ï¼Œ TOTAL_SIZE ãƒã‚¤ãƒˆåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’ TRY_COUNT å›ã‚µãƒ¼ãƒã¸ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ï¼
      */
     private long[] upload(int bufferSize, int numSockets)
     {
-        // Œo‰ßŠÔ‚ğ‹L˜^‚·‚é‚½‚ß‚Ì”z—ñ‚ğ¶¬‚µC—v‘f‚ğ -1 ‚Å‰Šú‰»‚·‚éD
+        // çµŒéæ™‚é–“ã‚’è¨˜éŒ²ã™ã‚‹ãŸã‚ã®é…åˆ—ã‚’ç”Ÿæˆã—ï¼Œè¦ç´ ã‚’ -1 ã§åˆæœŸåŒ–ã™ã‚‹ï¼
         long[] elapsedTimes_ms = new long[TRY_COUNT];
         for (int i = 0; i < TRY_COUNT; i++) {
             elapsedTimes_ms[i] = -1;
         }
-        // —^‚¦‚ç‚ê‚½ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚É‚¨‚¯‚éˆ—‚ÌŠTà‚ğƒRƒ“ƒ\[ƒ‹‚Öo—Í‚·‚éD
+        // ä¸ãˆã‚‰ã‚ŒãŸãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã«ãŠã‘ã‚‹å‡¦ç†ã®æ¦‚èª¬ã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
         this.clog.printf("%s [", getDescription(bufferSize, numSockets));
         
-        // Œo‰ßŠÔ‚Ì—İŒv‚ÆC³í‚ÉƒAƒbƒvƒ[ƒh‚Å‚«‚½‰ñ”
+        // çµŒéæ™‚é–“ã®ç´¯è¨ˆã¨ï¼Œæ­£å¸¸ã«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã§ããŸå›æ•°
         long totalTime_ms = 0;
         int  count        = 0;
         
-        // —áŠO”­¶‚ÌƒƒbƒZ[ƒW‚ğŠi”[‚µ‚Ä‚¨‚­•¶š—ñ‚ÌƒŠƒXƒg
+        // ä¾‹å¤–ç™ºç”Ÿæ™‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ ¼ç´ã—ã¦ãŠãæ–‡å­—åˆ—ã®ãƒªã‚¹ãƒˆ
         ArrayList<String> entry = new ArrayList<String>();
         
-        // ƒT[ƒo‚Ö‚Ìƒf[ƒ^ƒAƒbƒvƒ[ƒh‚ğ TRY_COUNT ‰ñŒJ‚è•Ô‚·D
+        // ã‚µãƒ¼ãƒã¸ã®ãƒ‡ãƒ¼ã‚¿ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã‚’ TRY_COUNT å›ç¹°ã‚Šè¿”ã™ï¼
         for (int i = 0; i < TRY_COUNT; i++) {
             try {
-                // ƒT[ƒo‚Öƒf[ƒ^‚ğƒAƒbƒvƒ[ƒh‚·‚é‚½‚ß‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µC
-                // ƒAƒbƒvƒ[ƒhŠJn‚ğæ“¾‚µ‚½ŒãCTOTAL_SIZE •ª‚Ì‘—Mˆ—‚ğÀs‚·‚éD
+                // ã‚µãƒ¼ãƒã¸ãƒ‡ãƒ¼ã‚¿ã‚’ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãŸã‚ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ï¼Œ
+                // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰é–‹å§‹æ™‚åˆ»ã‚’å–å¾—ã—ãŸå¾Œï¼ŒTOTAL_SIZE åˆ†ã®é€ä¿¡å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ï¼
                 MultiThreadUploader uploader = new MultiThreadUploader(
                     this.servAddr, this.servPort, TOTAL_SIZE, bufferSize,
                     numSockets
                 );
-                // ƒAƒbƒvƒ[ƒhŠJn‚ğæ“¾‚·‚éD
+                // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰é–‹å§‹æ™‚åˆ»ã‚’å–å¾—ã™ã‚‹ï¼
                 long startTime_ms = System.currentTimeMillis();
                 
-                // ƒAƒbƒvƒ[ƒhˆ—‚ğÀs‚·‚éD
+                // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ï¼
                 uploader.upload();
                 // InterruptedException, ExecutionException
                 
-                // ƒAƒbƒvƒ[ƒhI—¹‚ğæ“¾‚µCŒo‰ßŠÔ‚ÆŒo‰ßŠÔ‚Ì—İŒv‚ğ‹‚ß‚éD
+                // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰çµ‚äº†æ™‚åˆ»ã‚’å–å¾—ã—ï¼ŒçµŒéæ™‚é–“ã¨çµŒéæ™‚é–“ã®ç´¯è¨ˆã‚’æ±‚ã‚ã‚‹ï¼
                 long endTime_ms = System.currentTimeMillis();
                 elapsedTimes_ms[i] = endTime_ms - startTime_ms;
                 if (elapsedTimes_ms[i] == 0) {
-                    // ƒ~ƒŠ•b‚Ì¸“x‚Å‚ÍŒo‰ßŠÔ‚ª 0ms ‚Æ‚È‚éê‡‚ª‚ ‚éD
-                    // ‚»‚Ìê‡‚ÍCÅ¬’l‚Å‚ ‚é 1ms Œo‰ß‚µ‚½‚à‚Ì‚Æ‚·‚éD 
+                    // ãƒŸãƒªç§’ã®ç²¾åº¦ã§ã¯çµŒéæ™‚é–“ãŒ 0ms ã¨ãªã‚‹å ´åˆãŒã‚ã‚‹ï¼
+                    // ãã®å ´åˆã¯ï¼Œæœ€å°å€¤ã§ã‚ã‚‹ 1ms çµŒéã—ãŸã‚‚ã®ã¨ã™ã‚‹ï¼ 
                     elapsedTimes_ms[i] = 1;
                 }
                 totalTime_ms += elapsedTimes_ms[i];
                 
-                // ³í‚ÉƒAƒbƒvƒ[ƒh‚Å‚«‚½‰ñ”‚ğƒJƒEƒ“ƒg‚µC
-                // ƒAƒbƒvƒ[ƒhI—¹‚ğ¦‚· "o" ‚ğƒRƒ“ƒ\[ƒ‹‚Öo—Í‚·‚éD
+                // æ­£å¸¸ã«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã§ããŸå›æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆã—ï¼Œ
+                // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰çµ‚äº†ã‚’ç¤ºã™ "o" ã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
                 count++;
                 this.clog.printf("o");
             }
             catch (InterruptedException | ExecutionException ex) {
-                // —áŠO‚ª”­¶‚µ‚½D
-                // ƒAƒbƒvƒ[ƒhˆ—‚ª³í‚ÉI—¹‚µ‚Ä‚¢‚È‚¢‚±‚Æ‚ğ¦‚· "x" ‚ğ
-                // ƒRƒ“ƒ\[ƒ‹‚Öo—Í‚µC—áŠOƒƒbƒZ[ƒW‚ğƒŠƒXƒg‚Ö’Ç‰Á‚µ‚Ä‚¨‚­D
+                // ä¾‹å¤–ãŒç™ºç”Ÿã—ãŸï¼
+                // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰å‡¦ç†ãŒæ­£å¸¸ã«çµ‚äº†ã—ã¦ã„ãªã„ã“ã¨ã‚’ç¤ºã™ "x" ã‚’
+                // ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã—ï¼Œä¾‹å¤–ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒªã‚¹ãƒˆã¸è¿½åŠ ã—ã¦ãŠãï¼
                 this.clog.printf("x");
                 entry.add("  " + ex.getMessage());
             }
         }
-        // ³í‚ÉƒAƒbƒvƒ[ƒh‚Å‚«‚½‰ñ”‚ğŠm”F‚µC1‰ñ‚Å‚à³í‚ÉƒAƒbƒvƒ[ƒh‚Å‚«‚Ä‚¢‚ê‚ÎC
-        // TOTAL_SIZE •ª‚ÌƒAƒbƒvƒ[ƒhŠÔ‚Ì•½‹Ï‚ğ‹‚ß‚ÄƒRƒ“ƒ\[ƒ‹‚Öo—Í‚·‚éD
+        // æ­£å¸¸ã«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã§ããŸå›æ•°ã‚’ç¢ºèªã—ï¼Œ1å›ã§ã‚‚æ­£å¸¸ã«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã§ãã¦ã„ã‚Œã°ï¼Œ
+        // TOTAL_SIZE åˆ†ã®ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰æ™‚é–“ã®å¹³å‡ã‚’æ±‚ã‚ã¦ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
         if (count > 0) {
             double average_sec = (totalTime_ms / count) / 1000.0;
             this.clog.printf("], average time: %6.3f sec.\n", average_sec);
@@ -228,16 +228,16 @@ public class UploadExperiment
         else {
             this.clog.println("]");
         }
-        // —áŠO‚ª”­¶‚µ‚Ä‚¢‚½ê‡‚Í‚»‚ÌƒƒbƒZ[ƒW‚ğƒRƒ“ƒ\[ƒ‹‚Öo—Í‚·‚éD
+        // ä¾‹å¤–ãŒç™ºç”Ÿã—ã¦ã„ãŸå ´åˆã¯ãã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
         if (entry.size() > 0) {
             this.clog.printlist(entry);
         }
-        // Œo‰ßŠÔ‚Ì”z—ñ‚ğ•Ô‚·D
+        // çµŒéæ™‚é–“ã®é…åˆ—ã‚’è¿”ã™ï¼
         return elapsedTimes_ms;
     }
     
     /**
-     * —^‚¦‚ç‚ê‚½ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”‚É‚¨‚¯‚éˆ—‚ÌŠTà‚ğ•Ô‚·D
+     * ä¸ãˆã‚‰ã‚ŒãŸãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã«ãŠã‘ã‚‹å‡¦ç†ã®æ¦‚èª¬ã‚’è¿”ã™ï¼
      */
     private String getDescription(int bufferSize, int numSockets)
     {
@@ -262,7 +262,7 @@ public class UploadExperiment
     }
     
     /**
-     * ƒoƒCƒg’PˆÊ‚Ì”’l‚ğC’PˆÊ•t‚«‚Ì•¶š—ñ‚É•ÏŠ·‚·‚éD
+     * ãƒã‚¤ãƒˆå˜ä½ã®æ•°å€¤ã‚’ï¼Œå˜ä½ä»˜ãã®æ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ï¼
      */
     private String toKiloByte(int val_byte)
     {
@@ -284,16 +284,16 @@ public class UploadExperiment
     }
     
     /**
-     * Œo‰ßŠÔ‚©‚çƒXƒ‹[ƒvƒbƒg‚ğ‹‚ß‚éD
+     * çµŒéæ™‚é–“ã‹ã‚‰ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã‚’æ±‚ã‚ã‚‹ï¼
      */
     private int[] calcThroughput(long[] elapsedTimes_ms)
     {
-        // ƒXƒ‹[ƒvƒbƒg‚ğŠi”[‚·‚é‚½‚ß‚Ì”z—ñ‚ğ¶¬‚µC—v‘f‚ğ -1 ‚Å‰Šú‰»‚·‚éD
+        // ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã‚’æ ¼ç´ã™ã‚‹ãŸã‚ã®é…åˆ—ã‚’ç”Ÿæˆã—ï¼Œè¦ç´ ã‚’ -1 ã§åˆæœŸåŒ–ã™ã‚‹ï¼
         int[] throughputs_mbps = new int[TRY_COUNT];
         for (int i = 0; i < TRY_COUNT; i++) {
             throughputs_mbps[i] = -1;
         }
-        // Œo‰ßŠÔ‚©‚çƒXƒ‹[ƒvƒbƒg‚ğ‹‚ß‚éD
+        // çµŒéæ™‚é–“ã‹ã‚‰ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã‚’æ±‚ã‚ã‚‹ï¼
         for (int i = 0; i < TRY_COUNT; i++) {
             long elapsedTime_ms = elapsedTimes_ms[i];
             if (elapsedTime_ms == -1) {
@@ -302,22 +302,22 @@ public class UploadExperiment
             long throughput_bps = 1000 * (TOTAL_SIZE * 8 / elapsedTime_ms);
             throughputs_mbps[i] = (int)Math.round(throughput_bps / 1000000.0);
         }
-        // ‹‚ß‚½ƒXƒ‹[ƒvƒbƒg‚Ì”z—ñ‚ğ•Ô‚·D
+        // æ±‚ã‚ãŸã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®é…åˆ—ã‚’è¿”ã™ï¼
         return throughputs_mbps;
     }
     
     /**
-     * •½‹ÏƒXƒ‹[ƒvƒbƒg‚ğ‹‚ß‚éD
+     * å¹³å‡ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã‚’æ±‚ã‚ã‚‹ï¼
      */
     private int calcAverage(int[] throughputs_mbps)
     {
-        // •½‹ÏƒXƒ‹[ƒvƒbƒg
+        // å¹³å‡ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆ
         int average_mbps = 0;
         
         int sum   = 0;
         int count = 0;
         
-        // ƒXƒ‹[ƒvƒbƒg‚Ì•½‹Ï‚ğ‹‚ß‚éD
+        // ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®å¹³å‡ã‚’æ±‚ã‚ã‚‹ï¼
         for (int i = 0; i < TRY_COUNT; i++) {
             int throughput_mbps = throughputs_mbps[i];
             if (throughput_mbps == -1) {
@@ -326,27 +326,27 @@ public class UploadExperiment
             sum += throughput_mbps;
             count++;
         }
-        // 1‰ñˆÈãCŒv‘ª‚É¬Œ÷‚µ‚Ä‚¢‚é‚±‚Æ‚ğŠm”F‚µ‚½ã‚ÅC
-        // •½‹ÏƒXƒ‹[ƒvƒbƒg‚ğ‹‚ß‚éD
+        // 1å›ä»¥ä¸Šï¼Œè¨ˆæ¸¬ã«æˆåŠŸã—ã¦ã„ã‚‹ã“ã¨ã‚’ç¢ºèªã—ãŸä¸Šã§ï¼Œ
+        // å¹³å‡ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã‚’æ±‚ã‚ã‚‹ï¼
         if (count > 0) {
             average_mbps = sum / count;
         }
-        // •½‹ÏƒXƒ‹[ƒvƒbƒg‚ğ•Ô‚·D
+        // å¹³å‡ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã‚’è¿”ã™ï¼
         return average_mbps;
     }
     
     /**
-     * ƒXƒ‹[ƒvƒbƒg‚Ì•W€•Î·‚ğ‹‚ß‚éD
+     * ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®æ¨™æº–åå·®ã‚’æ±‚ã‚ã‚‹ï¼
      */
     private int calcStdDev(int average_mbps, int[] throughputs_mbps)
     {
-        // ƒXƒ‹[ƒvƒbƒg‚Ì•W€•Î·
+        // ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®æ¨™æº–åå·®
         int stdDev_mbps = 0;
         
         int sum   = 0;
         int count = 0;
         
-        // ƒXƒ‹[ƒvƒbƒg‚Ì•W€•Î·‚ğ‹‚ß‚éD
+        // ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®æ¨™æº–åå·®ã‚’æ±‚ã‚ã‚‹ï¼
         for (int i = 0; i < TRY_COUNT; i++) {
             int throughput_mbps = throughputs_mbps[i];
             if (throughput_mbps == -1) {
@@ -355,17 +355,17 @@ public class UploadExperiment
             sum += Math.pow(throughput_mbps - average_mbps, 2);
             count++;
         }
-        // 1‰ñˆÈãCŒv‘ª‚É¬Œ÷‚µ‚Ä‚¢‚é‚±‚Æ‚ğŠm”F‚µ‚½ã‚ÅC
-        // •W€•Î·‚ğ‹‚ß‚éD
+        // 1å›ä»¥ä¸Šï¼Œè¨ˆæ¸¬ã«æˆåŠŸã—ã¦ã„ã‚‹ã“ã¨ã‚’ç¢ºèªã—ãŸä¸Šã§ï¼Œ
+        // æ¨™æº–åå·®ã‚’æ±‚ã‚ã‚‹ï¼
         if (count > 0) {
             stdDev_mbps = (int)Math.sqrt(sum / count);
         }
-        // ƒXƒ‹[ƒvƒbƒg‚Ì•W€•Î·‚ğ•Ô‚·D
+        // ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆã®æ¨™æº–åå·®ã‚’è¿”ã™ï¼
         return stdDev_mbps;
     }
     
     /**
-     * ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”–ˆ‚ÌÀŒ±Œ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚Öo—Í‚·‚éD
+     * ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°æ¯ã®å®Ÿé¨“çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     private void writeResults(int[][] results)
     {
@@ -386,11 +386,11 @@ public class UploadExperiment
     }
     
     /**
-     * ƒoƒbƒtƒ@ƒTƒCƒY‚Æƒ\ƒPƒbƒg”–ˆ‚ÌƒXƒ‹[ƒvƒbƒg(TRY_COUNT ‰ñ•ª‚Ì’l)‚ğƒtƒ@ƒCƒ‹‚Öo—Í‚·‚éD
+     * ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨ã‚½ã‚±ãƒƒãƒˆæ•°æ¯ã®ã‚¹ãƒ«ãƒ¼ãƒ—ãƒƒãƒˆ(TRY_COUNT å›åˆ†ã®å€¤)ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸å‡ºåŠ›ã™ã‚‹ï¼
      */
     private void writeAllThroughputs(Object[][] throughputsArray)
     {
-        // ƒoƒbƒtƒ@ƒTƒCƒY‚Ì”z—ñ‚Æƒ\ƒPƒbƒg”‚Ì”z—ñ‚ğ‘–¸‚·‚éD
+        // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®é…åˆ—ã¨ã‚½ã‚±ãƒƒãƒˆæ•°ã®é…åˆ—ã‚’èµ°æŸ»ã™ã‚‹ï¼
         for (int bs = 0; bs < BUF_SIZE_ARRAY.length; bs++) {
             for (int ns = 0; ns < NUM_SOCKS_ARRAY.length; ns++) {
                 this.flog.printf("%d\t%d", BUF_SIZE_ARRAY[bs], NUM_SOCKS_ARRAY[ns]);

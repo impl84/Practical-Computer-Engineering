@@ -5,22 +5,22 @@ public class TryCatch
     {
         int result = 1;
         try {
-            System.out.println("> try catch finally ‚ÌÀŒ±");
+            System.out.println("> try catch finally ã®å®Ÿé¨“");
             result /= 0;
         }
         catch (ArithmeticException ex) {
-            System.out.println("> catch ƒuƒƒbƒN‚Ì’† (ArithmeticException)");
+            System.out.println("> catch ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­ (ArithmeticException)");
             //return;
             //throw ex;
             //System.exit(-1);
-            //throw new IOException("—áŠO”­¶H");
+            //throw new IOException("ä¾‹å¤–ç™ºç”Ÿï¼Ÿ");
         }
         catch (Exception ex) {
-            System.out.println("> catch ƒuƒƒbƒN‚Ì’† (Exception)");
+            System.out.println("> catch ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­ (Exception)");
         }
         finally {
-            System.out.println("> finally ƒuƒƒbƒN‚Ì’†");
+            System.out.println("> finally ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­");
         }
-        System.out.println("> main ƒƒ\ƒbƒh‚ÌÅŒãF" + result);
+        System.out.println("> main ãƒ¡ã‚½ãƒƒãƒ‰ã®æœ€å¾Œï¼š" + result);
     }
 }

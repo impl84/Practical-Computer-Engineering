@@ -5,15 +5,15 @@ class InstanceofClass
     
     public static void main(String args[])
     {
-        // ‹›—Ş‚Ì”z—ñ
+        // é­šé¡ã®é…åˆ—
         Fish fishes[] = new Fish[NUMFISH];
         
-        fishes[0] = new Trout();    // ƒ}ƒX
-        fishes[1] = new Flounder(); // ƒJƒŒƒC 
-        fishes[2] = new Tuna();     // ƒ}ƒOƒ
-        fishes[3] = new Trout();    // ƒ}ƒX
+        fishes[0] = new Trout();    // ãƒã‚¹
+        fishes[1] = new Flounder(); // ã‚«ãƒ¬ã‚¤ 
+        fishes[2] = new Tuna();     // ãƒã‚°ãƒ­
+        fishes[3] = new Trout();    // ãƒã‚¹
         
-        // ŠC…‹›‚ğ•\¦‚·‚éD
+        // æµ·æ°´é­šã‚’è¡¨ç¤ºã™ã‚‹ï¼
         for (int i = 0; i < NUMFISH; i++) {
             Fish fish = fishes[i];
             if (fish instanceof SaltWaterFish) {

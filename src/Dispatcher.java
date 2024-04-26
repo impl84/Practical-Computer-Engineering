@@ -2,12 +2,12 @@
 import java.net.ServerSocket;
 
 /**
- * ƒfƒBƒXƒpƒbƒ`ƒƒ—p‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX
+ * ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ç”¨ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
  */
 public interface Dispatcher
 {
     /**
-     * ƒfƒBƒXƒpƒbƒ`ˆ—‚ğŠJn‚·‚éD
+     * ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒå‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼
      */
     public void startDispatching(
         ServerSocket servSock, ProtocolFactory protoFactory, Logger logger

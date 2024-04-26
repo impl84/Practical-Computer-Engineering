@@ -1,34 +1,34 @@
 /**
- * 10l‚Ì—a‹àŽÒ‚ª‚»‚ê‚¼‚ê1–œ‰~‚ð1‚Â‚Ì‹âsŒûÀ‚Ö—a‹à‚·‚é‹@”\‚ÌŽÀŒ±
+ * 10äººã®é é‡‘è€…ãŒãã‚Œãžã‚Œ1ä¸‡å††ã‚’1ã¤ã®éŠ€è¡Œå£åº§ã¸é é‡‘ã™ã‚‹æ©Ÿèƒ½ã®å®Ÿé¨“
  */
 public class MultipleDepositorsTest
 {
-    // —a‹àŽÒ‚Ìl”
+    // é é‡‘è€…ã®äººæ•°
     private final static int NUM_OF_DEPOSITORS = 10;
     
-    // 10l‚Ì—a‹àŽÒ‚ª‚»‚ê‚¼‚ê1–œ‰~‚ð1‚Â‚Ì‹âsŒûÀ‚Ö—a‹à‚·‚éD
+    // 10äººã®é é‡‘è€…ãŒãã‚Œãžã‚Œ1ä¸‡å††ã‚’1ã¤ã®éŠ€è¡Œå£åº§ã¸é é‡‘ã™ã‚‹ï¼Ž
     public static void main(String args[])
     {
-        // ‹âsŒûÀ‚ð1‚Â¶¬‚·‚éD
+        // éŠ€è¡Œå£åº§ã‚’1ã¤ç”Ÿæˆã™ã‚‹ï¼Ž
         Account account = new Account();
         
-        // —a‹àŽÒ–ˆ‚Ì—a‹àˆ—‚ðŽÀs‚·‚éƒXƒŒƒbƒh‚Ì”z—ñ‚ð¶¬‚·‚éD
+        // é é‡‘è€…æ¯Žã®é é‡‘å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ã‚¹ãƒ¬ãƒƒãƒ‰ã®é…åˆ—ã‚’ç”Ÿæˆã™ã‚‹ï¼Ž
         Thread threads[] = new Thread[10];
         
-        // —a‹àŽÒ1l‚É‚Â‚«1‚Â‚ÌƒXƒŒƒbƒh‚ðŠ„‚è“–‚ÄC
-        // ‚»‚ê‚¼‚ê‚ÌƒXƒŒƒbƒh‚É‚¨‚¢‚Ä—a‹àˆ—‚ðŠJŽn‚·‚éD
+        // é é‡‘è€…1äººã«ã¤ã1ã¤ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’å‰²ã‚Šå½“ã¦ï¼Œ
+        // ãã‚Œãžã‚Œã®ã‚¹ãƒ¬ãƒƒãƒ‰ã«ãŠã„ã¦é é‡‘å‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼Ž
         for (int i = 0; i < NUM_OF_DEPOSITORS; i++) {
-            // —a‹àŽÒ‚ÆC—a‹àˆ—‚ðŽÀs‚·‚é‚½‚ß‚ÌƒXƒŒƒbƒh‚ð¶¬‚·‚éD
+            // é é‡‘è€…ã¨ï¼Œé é‡‘å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ç”Ÿæˆã™ã‚‹ï¼Ž
             Depositor depositor = new Depositor(account);
             threads[i] = new Thread(depositor);
             
-            // ƒXƒŒƒbƒh‚Ìˆ—‚ðŠJŽn‚·‚éD
-            // ˆ—‚ðŠJŽn‚µ‚½ƒXƒŒƒbƒh“à•”‚©‚ç‚ÍC
-            // —a‹àŽÒ‚Ì—a‹àˆ—irun ƒƒ\ƒbƒhj‚ªŒÄ‚Ño‚³‚ê‚éD
-            // ‚±‚±‚ÅŒÄ‚Ño‚· start ƒƒ\ƒbƒh‚Í‘¦Žž•œ‹A‚·‚éD
+            // ã‚¹ãƒ¬ãƒƒãƒ‰ã®å‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼Ž
+            // å‡¦ç†ã‚’é–‹å§‹ã—ãŸã‚¹ãƒ¬ãƒƒãƒ‰å†…éƒ¨ã‹ã‚‰ã¯ï¼Œ
+            // é é‡‘è€…ã®é é‡‘å‡¦ç†ï¼ˆrun ãƒ¡ã‚½ãƒƒãƒ‰ï¼‰ãŒå‘¼ã³å‡ºã•ã‚Œã‚‹ï¼Ž
+            // ã“ã“ã§å‘¼ã³å‡ºã™ start ãƒ¡ã‚½ãƒƒãƒ‰ã¯å³æ™‚å¾©å¸°ã™ã‚‹ï¼Ž
             threads[i].start();
         }
-        // ¶¬‚µ‚½‘S‚Ä‚ÌƒXƒŒƒbƒh‚ÌI—¹‚ð‘Ò‚ÂD
+        // ç”Ÿæˆã—ãŸå…¨ã¦ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã®çµ‚äº†ã‚’å¾…ã¤ï¼Ž
         for (Thread thread : threads) {
             try {
                 thread.join();
@@ -37,27 +37,27 @@ public class MultipleDepositorsTest
                 ex.printStackTrace();
             }
         }
-        // —a‹àŒ‹‰Ê‚ð•\Ž¦‚·‚éD
+        // é é‡‘çµæžœã‚’è¡¨ç¤ºã™ã‚‹ï¼Ž
         System.out.println(account.getBalance());
     }
 }
 
 /**
- * ‹âsŒûÀ
+ * éŠ€è¡Œå£åº§
  */
 class Account
 {
-    // ŒûÀŽc‚   
+    // å£åº§æ®‹é«˜   
     private int balance = 0;
     
-    // —a‹à‚·‚é
+    // é é‡‘ã™ã‚‹
     void deposit(int amount)
     {
-        // ŒûÀŽc‚‚É—a‹àŠz‚ð‰Á‚¦‚éD
+        // å£åº§æ®‹é«˜ã«é é‡‘é¡ã‚’åŠ ãˆã‚‹ï¼Ž
         balance += amount;
     }
     
-    // ŒûÀŽc‚‚ðŽæ“¾‚·‚éD
+    // å£åº§æ®‹é«˜ã‚’å–å¾—ã™ã‚‹ï¼Ž
     int getBalance()
     {
         return balance;
@@ -65,32 +65,32 @@ class Account
 }
 
 /**
- * —a‹àŽÒ
+ * é é‡‘è€…
  */
 class Depositor
     implements
         Runnable
 {
-    // ‹âsŒûÀ
+    // éŠ€è¡Œå£åº§
     private final Account account;
     
-    // —a‹àŽÒ‚ð¶¬‚·‚éD
+    // é é‡‘è€…ã‚’ç”Ÿæˆã™ã‚‹ï¼Ž
     Depositor(Account account)
     {
-        // —^‚¦‚ç‚ê‚½‹âsŒûÀ‚ð•ÛŽ‚·‚éD
+        // ä¸Žãˆã‚‰ã‚ŒãŸéŠ€è¡Œå£åº§ã‚’ä¿æŒã™ã‚‹ï¼Ž
         this.account = account;
     }
     
-    // ‹âsŒûÀ‚Ö—a‹à‚·‚éD
+    // éŠ€è¡Œå£åº§ã¸é é‡‘ã™ã‚‹ï¼Ž
     //
-    // Runnable ƒCƒ“ƒ^[ƒtƒF[ƒX‚É‚¨‚¯‚é run ƒƒ\ƒbƒh‚ÌŽÀ‘•F
-    // ‚±‚Ì—a‹àŽÒ‚É‘Î‰ž‚·‚éƒXƒŒƒbƒh‚©‚çŒÄ‚Î‚ê‚é‚±‚Æ‚ð‘z’è‚µ‚Ä‚¢‚éD
+    // Runnable ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã«ãŠã‘ã‚‹ run ãƒ¡ã‚½ãƒƒãƒ‰ã®å®Ÿè£…ï¼š
+    // ã“ã®é é‡‘è€…ã«å¯¾å¿œã™ã‚‹ã‚¹ãƒ¬ãƒƒãƒ‰ã‹ã‚‰å‘¼ã°ã‚Œã‚‹ã“ã¨ã‚’æƒ³å®šã—ã¦ã„ã‚‹ï¼Ž
     @Override
     public void run()
     {
-        // ‹âsŒûÀ‚Ö‚Ì—a‹à‚ð 10000 ‰ñŒJ‚è•Ô‚·D
+        // éŠ€è¡Œå£åº§ã¸ã®é é‡‘ã‚’ 10000 å›žç¹°ã‚Šè¿”ã™ï¼Ž
         for (int i = 0; i < 10000; i++) {
-            // ‹âsŒûÀ‚Ö 1‰~•ª—a‹à‚·‚éD
+            // éŠ€è¡Œå£åº§ã¸ 1å††åˆ†é é‡‘ã™ã‚‹ï¼Ž
             this.account.deposit(1);
         }
     }

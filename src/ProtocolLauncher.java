@@ -4,38 +4,38 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 
 /**
- * ŠeíƒvƒƒgƒRƒ‹‹N“®—p‚ÌƒNƒ‰ƒX
+ * å„ç¨®ãƒ—ãƒ­ãƒˆã‚³ãƒ«èµ·å‹•ç”¨ã®ã‚¯ãƒ©ã‚¹
  */
 public class ProtocolLauncher
 {
-    // ƒNƒ‰ƒX•Ï”i’è”jF
-    static private final int BACKLOG = 8;   // TCPƒRƒlƒNƒVƒ‡ƒ“—v‹ˆ——p‚ÌƒLƒ…[‚Ì’·‚³
+    // ã‚¯ãƒ©ã‚¹å¤‰æ•°ï¼ˆå®šæ•°ï¼‰ï¼š
+    static private final int BACKLOG = 8;   // TCPã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³è¦æ±‚å‡¦ç†ç”¨ã®ã‚­ãƒ¥ãƒ¼ã®é•·ã•
     
     /**
-     * ˆø”‚Åw’è‚³‚ê‚½ƒvƒƒgƒRƒ‹‚ÆƒfƒBƒXƒpƒbƒ`ƒƒ‚É‚æ‚èC ƒT[ƒo‘¤‚ÌƒvƒƒgƒRƒ‹ˆ—‚ğŠJn‚·‚éD
+     * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸãƒ—ãƒ­ãƒˆã‚³ãƒ«ã¨ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ã«ã‚ˆã‚Šï¼Œ ã‚µãƒ¼ãƒå´ã®ãƒ—ãƒ­ãƒˆã‚³ãƒ«å‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼
      */
     public static void main(String[] args)
     {
-        // ˆø”‚Ì”‚ğŠm”F‚·‚éD
+        // å¼•æ•°ã®æ•°ã‚’ç¢ºèªã™ã‚‹ï¼
         if (args.length != 3) {
             System.err.println("Parameter(s): <Port> <Protocol> <Dispatcher>");
             return;
         }
-        // ˆø”‚©‚ç‰º‹L(a)`(c)‚ğæ“¾‚·‚éD
-        // (a) ƒT[ƒo‚Ìƒ|[ƒg”Ô†
-        // (b) —˜—p‚·‚éƒvƒƒgƒRƒ‹ƒtƒ@ƒNƒgƒŠƒNƒ‰ƒX–¼‚ÌÚ“ª«
-        // (c) —˜—p‚·‚éƒfƒBƒXƒpƒbƒ`ƒƒƒNƒ‰ƒX–¼‚ÌÚ“ª«
+        // å¼•æ•°ã‹ã‚‰ä¸‹è¨˜(a)ã€œ(c)ã‚’å–å¾—ã™ã‚‹ï¼
+        // (a) ã‚µãƒ¼ãƒã®ãƒãƒ¼ãƒˆç•ªå·
+        // (b) åˆ©ç”¨ã™ã‚‹ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒ•ã‚¡ã‚¯ãƒˆãƒªã‚¯ãƒ©ã‚¹åã®æ¥é ­è¾
+        // (c) åˆ©ç”¨ã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ã‚¯ãƒ©ã‚¹åã®æ¥é ­è¾
         int    servPort       = Integer.parseInt(args[0]);
         String factoryName    = args[1] + "ProtocolFactory";
         String dispatcherName = args[2] + "Dispatcher";
         
         try {
-            // TCP‚ÌƒRƒlƒNƒVƒ‡ƒ“—v‹‚ğˆ—‚·‚é‚½‚ß‚Ìƒ\ƒPƒbƒg‚ğ¶¬‚·‚éD
+            // TCPã®ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³è¦æ±‚ã‚’å‡¦ç†ã™ã‚‹ãŸã‚ã®ã‚½ã‚±ãƒƒãƒˆã‚’ç”Ÿæˆã™ã‚‹ï¼
             ServerSocket servSock = new ServerSocket(servPort, BACKLOG);
-            // —áŠOFIOException
+            // ä¾‹å¤–ï¼šIOException
             
-            // ƒvƒƒgƒRƒ‹ƒtƒ@ƒNƒgƒŠ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚éD
-            // ”­¶‚·‚é‰Â”\«‚Ì‚ ‚é—áŠO‚ÍˆÈ‰º‚Ì’Ê‚è...(A)
+            // ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒ•ã‚¡ã‚¯ãƒˆãƒªã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹ï¼
+            // ç™ºç”Ÿã™ã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹ä¾‹å¤–ã¯ä»¥ä¸‹ã®é€šã‚Š...(A)
             // forName():
             //      ClassNotFoundException
             // getDeclaredConstructor():
@@ -47,29 +47,29 @@ public class ProtocolLauncher
                 .getDeclaredConstructor()
                 .newInstance();
             
-            // ƒfƒBƒXƒpƒbƒ`ƒƒ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚éD
-            // ”­¶‚·‚é‰Â”\«‚Ì‚ ‚é—áŠO‚ÍCã‹L(A)‚Æ“¯‚¶D
+            // ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹ï¼
+            // ç™ºç”Ÿã™ã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹ä¾‹å¤–ã¯ï¼Œä¸Šè¨˜(A)ã¨åŒã˜ï¼
             Dispatcher dispatcher = (Dispatcher)Class
                 .forName(dispatcherName)
                 .getDeclaredConstructor()
                 .newInstance();
             
-            // ƒRƒ“ƒ\[ƒ‹o—Í—p‚Ì Logger ‚ğ¶¬‚·‚éD
+            // ã‚³ãƒ³ã‚½ãƒ¼ãƒ«å‡ºåŠ›ç”¨ã® Logger ã‚’ç”Ÿæˆã™ã‚‹ï¼
             Logger logger = new ConsoleLogger();
             
-            // ƒfƒBƒXƒpƒbƒ`ƒƒ“à‚ÅƒvƒƒgƒRƒ‹ƒtƒ@ƒNƒgƒŠ‚ğ—˜—p‚µC
-            // ƒT[ƒo‘¤‚ÌƒvƒƒgƒRƒ‹ˆ—‚ğŠJn‚·‚éD
+            // ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£å†…ã§ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒ•ã‚¡ã‚¯ãƒˆãƒªã‚’åˆ©ç”¨ã—ï¼Œ
+            // ã‚µãƒ¼ãƒå´ã®ãƒ—ãƒ­ãƒˆã‚³ãƒ«å‡¦ç†ã‚’é–‹å§‹ã™ã‚‹ï¼
             dispatcher.startDispatching(servSock, factory, logger);
         }
         catch (IOException ex) {
-            System.err.println("ServerSocket ‚Ì¶¬‚É¸”s‚µ‚Ü‚µ‚½F" + ex.getMessage());
+            System.err.println("ServerSocket ã®ç”Ÿæˆã«å¤±æ•—ã—ã¾ã—ãŸï¼š" + ex.getMessage());
         }
         catch (
             ClassNotFoundException
             | NoSuchMethodException
             | InstantiationException | IllegalAccessException | InvocationTargetException ex
         ) {
-            System.err.println("ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬‚É¸”s‚µ‚Ü‚µ‚½F" + ex.getMessage());
+            System.err.println("ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆã«å¤±æ•—ã—ã¾ã—ãŸï¼š" + ex.getMessage());
         }
     }
 }

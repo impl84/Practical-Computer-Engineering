@@ -9,60 +9,60 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- * ƒ[ƒ‹‚Ì‘—MÀŒ±
+ * ãƒ¡ãƒ¼ãƒ«ã®é€ä¿¡å®Ÿé¨“
  */
 public class MailSendingTest
 {
-    // SMTPƒT[ƒo‚Ìƒ|[ƒg”Ô†
+    // SMTPã‚µãƒ¼ãƒã®ãƒãƒ¼ãƒˆç•ªå·
     private static final int SMTP_PORT = 25;
     
-    // ‘—M‚·‚éƒ[ƒ‹‚Ì Subject ‚Æ–{•¶
-    private static final String SUBJECT = "“dqƒ[ƒ‹‚Ì‘—MƒeƒXƒg";
+    // é€ä¿¡ã™ã‚‹ãƒ¡ãƒ¼ãƒ«ã® Subject ã¨æœ¬æ–‡
+    private static final String SUBJECT = "é›»å­ãƒ¡ãƒ¼ãƒ«ã®é€ä¿¡ãƒ†ã‚¹ãƒˆ";
     private static final String[] DATA_LINES = {
-        "SMTP(Simple Mail Transfer Protocol)‚Ìd—l‚É‰ˆ‚¢A",
-        "SMTPƒT[ƒo‚Æ‘o•ûŒü‚Ì’ÊM‚ğs‚¤‚±‚Æ‚ÅA",
-        "“dqƒ[ƒ‹‚ğ‘—M‚Å‚«‚Ü‚·B"
+        "SMTP(Simple Mail Transfer Protocol)ã®ä»•æ§˜ã«æ²¿ã„ã€",
+        "SMTPã‚µãƒ¼ãƒã¨åŒæ–¹å‘ã®é€šä¿¡ã‚’è¡Œã†ã“ã¨ã§ã€",
+        "é›»å­ãƒ¡ãƒ¼ãƒ«ã‚’é€ä¿¡ã§ãã¾ã™ã€‚"
     };
     
     /**
-     * ExperimentalSmtpSocket ‚ğ—˜—p‚µ‚Äƒ[ƒ‹‚ğ‘—M‚·‚éD
+     * ExperimentalSmtpSocket ã‚’åˆ©ç”¨ã—ã¦ãƒ¡ãƒ¼ãƒ«ã‚’é€ä¿¡ã™ã‚‹ï¼
      */
     public static void main(String args[])
     {
-        // ˆø”‚Ì”‚ğŠm”F‚·‚éD
+        // å¼•æ•°ã®æ•°ã‚’ç¢ºèªã™ã‚‹ï¼
         if ((args.length < 2) || (args.length > 3)) {
             System.out.println("Parameters: <SMTP Server> <From> <To>");
             return;
         }
-        String smtpServer = args[0];    // SMTPƒT[ƒo–¼(‚Ü‚½‚ÍIPƒAƒhƒŒƒX)
-        String from       = args[1];    // ‘—MŒ³ƒ[ƒ‹ƒAƒhƒŒƒX
-        String to         = args[2];    // ˆ¶æƒ[ƒ‹ƒAƒhƒŒƒX
+        String smtpServer = args[0];    // SMTPã‚µãƒ¼ãƒå(ã¾ãŸã¯IPã‚¢ãƒ‰ãƒ¬ã‚¹)
+        String from       = args[1];    // é€ä¿¡å…ƒãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
+        String to         = args[2];    // å®›å…ˆãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
         
         ExperimentalSmtpSocket smtpSocket = null;
         try {
-            // ExperimentalSmtpSocket ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+            // ExperimentalSmtpSocket ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
             smtpSocket = new ExperimentalSmtpSocket(smtpServer, SMTP_PORT);
             
-            // ƒ[ƒ‹‚ğ‘—M‚·‚éD
+            // ãƒ¡ãƒ¼ãƒ«ã‚’é€ä¿¡ã™ã‚‹ï¼
             smtpSocket.sendMail(from, to, SUBJECT, DATA_LINES);
         }
         catch (UnknownHostException ex) {
-            // ExperimentalSmtpSocket ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX¶¬‚É—áŠO‚ª”­¶‚µ‚½D
+            // ExperimentalSmtpSocket ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã«ä¾‹å¤–ãŒç™ºç”Ÿã—ãŸï¼
             ex.printStackTrace();
         }
         catch (IOException ex) {
-            // ƒ[ƒ‹‘—M‚É—áŠO‚ª”­¶‚µ‚½D
+            // ãƒ¡ãƒ¼ãƒ«é€ä¿¡æ™‚ã«ä¾‹å¤–ãŒç™ºç”Ÿã—ãŸï¼
             ex.printStackTrace();
         }
         finally {
             try {
-                // —˜—p‚µ‚½ ExperimentalSmtpSocket ‚ğI—¹‚·‚éD
+                // åˆ©ç”¨ã—ãŸ ExperimentalSmtpSocket ã‚’çµ‚äº†ã™ã‚‹ï¼
                 if (smtpSocket != null) {
                     smtpSocket.close();
                 }
             }
             catch (IOException ex) {
-                // ExperimentalSmtpSocket I—¹ˆ—‚É—áŠO‚ª”­¶‚µ‚½D
+                // ExperimentalSmtpSocket çµ‚äº†å‡¦ç†æ™‚ã«ä¾‹å¤–ãŒç™ºç”Ÿã—ãŸï¼
                 ex.printStackTrace();
             }
         }
@@ -70,115 +70,115 @@ public class MailSendingTest
 }
 
 /**
- * SMTP‚ÌÀŒ±—pƒ\ƒPƒbƒg
+ * SMTPã®å®Ÿé¨“ç”¨ã‚½ã‚±ãƒƒãƒˆ
  */
 class ExperimentalSmtpSocket
 {
-    private final Socket socket;        // SMTPƒT[ƒo‚Æ‚ÌTCPƒRƒlƒNƒVƒ‡ƒ“‚Ì’[“_‚Æ‚È‚éƒ\ƒPƒbƒg
-    private final BufferedReader reader;// s’PˆÊ‚ÅóM‚ğˆ—‚·‚é‚½‚ß‚Ì BufferedReader
-    private final PrintWriter writer;   // s’PˆÊ‚Å‘—M‚ğˆ—‚·‚é‚½‚ß‚Ì PrintWriter
+    private final Socket socket;        // SMTPã‚µãƒ¼ãƒã¨ã®TCPã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã®ç«¯ç‚¹ã¨ãªã‚‹ã‚½ã‚±ãƒƒãƒˆ
+    private final BufferedReader reader;// è¡Œå˜ä½ã§å—ä¿¡ã‚’å‡¦ç†ã™ã‚‹ãŸã‚ã® BufferedReader
+    private final PrintWriter writer;   // è¡Œå˜ä½ã§é€ä¿¡ã‚’å‡¦ç†ã™ã‚‹ãŸã‚ã® PrintWriter
     
     /**
-     * ExperimentalSmtpSocket ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+     * ExperimentalSmtpSocket ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
      */
     ExperimentalSmtpSocket(String smtpServer, int smtpPort)
         throws UnknownHostException,
             IOException
     {
-        // SMTPƒT[ƒo‚Æ‚ÌTCPƒRƒlƒNƒVƒ‡ƒ“‚ğŠm—§‚µC
-        // ‚»‚Ì’[“_‚Æ‚È‚éƒ\ƒPƒbƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éD
+        // SMTPã‚µãƒ¼ãƒã¨ã®TCPã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã‚’ç¢ºç«‹ã—ï¼Œ
+        // ãã®ç«¯ç‚¹ã¨ãªã‚‹ã‚½ã‚±ãƒƒãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ï¼
         this.socket = new Socket(
             InetAddress.getByName(smtpServer), smtpPort
         );
-        // s’PˆÊ‚ÅóM‚ğˆ—‚·‚é‚½‚ß‚Ì BufferedReader ‚ğ¶¬‚·‚éD
+        // è¡Œå˜ä½ã§å—ä¿¡ã‚’å‡¦ç†ã™ã‚‹ãŸã‚ã® BufferedReader ã‚’ç”Ÿæˆã™ã‚‹ï¼
         this.reader = new BufferedReader(
             new InputStreamReader(this.socket.getInputStream())
         );
-        // s’PˆÊ‚Å‘—M‚ğˆ—‚·‚é‚½‚ß‚Ì PrintWriter ‚ğ¶¬‚·‚éD
+        // è¡Œå˜ä½ã§é€ä¿¡ã‚’å‡¦ç†ã™ã‚‹ãŸã‚ã® PrintWriter ã‚’ç”Ÿæˆã™ã‚‹ï¼
         this.writer = new PrintWriter(
             new OutputStreamWriter(this.socket.getOutputStream()),
-            true    // auto flush ‹@”\‚ğ—LŒø‚É‚·‚éD
+            true    // auto flush æ©Ÿèƒ½ã‚’æœ‰åŠ¹ã«ã™ã‚‹ï¼
         );
     }
     
     /**
-     * SMTP‚Ìè‡‚É‰ˆ‚Á‚Äƒ[ƒ‹‚ğ‘—M‚·‚éD
+     * SMTPã®æ‰‹é †ã«æ²¿ã£ã¦ãƒ¡ãƒ¼ãƒ«ã‚’é€ä¿¡ã™ã‚‹ï¼
      */
     void sendMail(String from, String to, String subject, String[] dataLines)
         throws IOException
     {
-        // SMTPƒT[ƒo‚Æ‚ÌTCPƒRƒlƒNƒVƒ‡ƒ“Šm—§’¼Œã‚ÉA
-        // ƒT[ƒo‚©‚ç‘—M‚³‚ê‚Ä‚­‚éƒƒbƒZ[ƒW‚ğóM‚·‚éD
+        // SMTPã‚µãƒ¼ãƒã¨ã®TCPã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ç¢ºç«‹ç›´å¾Œã«ã€
+        // ã‚µãƒ¼ãƒã‹ã‚‰é€ä¿¡ã•ã‚Œã¦ãã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å—ä¿¡ã™ã‚‹ï¼
         recvLine();
         
-        // ’ÊMŠJnƒRƒ}ƒ“ƒh‚ğ‘—M‚µC‚»‚Ì‰“š‚ğóM‚·‚éD
+        // é€šä¿¡é–‹å§‹ã‚³ãƒãƒ³ãƒ‰ã‚’é€ä¿¡ã—ï¼Œãã®å¿œç­”ã‚’å—ä¿¡ã™ã‚‹ï¼
         String localHostName = InetAddress.getLocalHost().getHostName();
         sendLine("HELO " + localHostName);
         recvLine();
         
-        // ‘—MÒ‚Ìƒ[ƒ‹ƒAƒhƒŒƒX‚ğ‘—M‚µC‚»‚Ì‰“š‚ğóM‚·‚éD
+        // é€ä¿¡è€…ã®ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’é€ä¿¡ã—ï¼Œãã®å¿œç­”ã‚’å—ä¿¡ã™ã‚‹ï¼
         sendLine("MAIL From:<" + from + ">");
         recvLine();
         
-        // óMÒ‚Ìƒ[ƒ‹ƒAƒhƒŒƒX‚ğ‘—M‚µC‚»‚Ì‰“š‚ğóM‚·‚éD
+        // å—ä¿¡è€…ã®ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’é€ä¿¡ã—ï¼Œãã®å¿œç­”ã‚’å—ä¿¡ã™ã‚‹ï¼
         sendLine("RCPT TO:<" + to + ">");
         recvLine();
         
-        // “dqƒ[ƒ‹‘—MŠJnƒRƒ}ƒ“ƒh‚ğ‘—M‚µC‚»‚Ì‰“š‚ğóM‚·‚éD
+        // é›»å­ãƒ¡ãƒ¼ãƒ«é€ä¿¡é–‹å§‹ã‚³ãƒãƒ³ãƒ‰ã‚’é€ä¿¡ã—ï¼Œãã®å¿œç­”ã‚’å—ä¿¡ã™ã‚‹ï¼
         sendLine("DATA");
         recvLine();
         
-        // “dqƒ[ƒ‹‚Ìƒwƒbƒ_s‚ğ‘—M‚·‚éD
+        // é›»å­ãƒ¡ãƒ¼ãƒ«ã®ãƒ˜ãƒƒãƒ€è¡Œã‚’é€ä¿¡ã™ã‚‹ï¼
         sendLine("To: " + to);
         sendLine("Subject: " + subject);
         
-        // ƒwƒbƒ_s‚Æ–{•¶‚ğ•ª‚¯‚é‹ós‚ğ‘—M‚·‚éD
+        // ãƒ˜ãƒƒãƒ€è¡Œã¨æœ¬æ–‡ã‚’åˆ†ã‘ã‚‹ç©ºè¡Œã‚’é€ä¿¡ã™ã‚‹ï¼
         sendLine("");
         
-        // “dqƒ[ƒ‹‚Ì–{•¶‚ğ‘—M‚·‚éD
+        // é›»å­ãƒ¡ãƒ¼ãƒ«ã®æœ¬æ–‡ã‚’é€ä¿¡ã™ã‚‹ï¼
         for (String line : dataLines) {
             sendLine(line);
         }
-        // “dqƒ[ƒ‹‘—MI—¹ƒRƒ}ƒ“ƒh(".")‚ğ‘—M‚µC‚»‚Ì‰“š‚ğóM‚·‚éD
+        // é›»å­ãƒ¡ãƒ¼ãƒ«é€ä¿¡çµ‚äº†ã‚³ãƒãƒ³ãƒ‰(".")ã‚’é€ä¿¡ã—ï¼Œãã®å¿œç­”ã‚’å—ä¿¡ã™ã‚‹ï¼
         sendLine(".");
         recvLine();
         
-        // I—¹ƒRƒ}ƒ“ƒh‚ğ‘—M‚µC‚»‚Ì‰“š‚ğóM‚·‚éD
+        // çµ‚äº†ã‚³ãƒãƒ³ãƒ‰ã‚’é€ä¿¡ã—ï¼Œãã®å¿œç­”ã‚’å—ä¿¡ã™ã‚‹ï¼
         sendLine("QUIT");
         recvLine();
     }
     
     /**
-     * ExperimentalSmtpSocket ‚ğI—¹‚·‚éD
+     * ExperimentalSmtpSocket ã‚’çµ‚äº†ã™ã‚‹ï¼
      */
     void close()
         throws IOException
     {
         try {
-            // s’PˆÊ‚Å‘—óM‚ğˆ—‚·‚é‚½‚ß‚É—˜—p‚µ‚Ä‚¢‚½
-            // PrintWriter ‚Æ BufferedReader ‚ğI—¹‚·‚éD
+            // è¡Œå˜ä½ã§é€å—ä¿¡ã‚’å‡¦ç†ã™ã‚‹ãŸã‚ã«åˆ©ç”¨ã—ã¦ã„ãŸ
+            // PrintWriter ã¨ BufferedReader ã‚’çµ‚äº†ã™ã‚‹ï¼
             this.writer.close();
             this.reader.close();
         }
         catch (IOException ex) {
-            // BufferedReader ‚Ì close ƒƒ\ƒbƒh‚Å—áŠO‚ª”­¶‚µ‚½D
+            // BufferedReader ã® close ãƒ¡ã‚½ãƒƒãƒ‰ã§ä¾‹å¤–ãŒç™ºç”Ÿã—ãŸï¼
             ex.printStackTrace();
         }
         finally {
-            // SMTPƒT[ƒo‚Æ‚ÌTCPƒRƒlƒNƒVƒ‡ƒ“‚Ì
-            // ’[“_‚Æ‚µ‚Ä—˜—p‚µ‚Ä‚¢‚½ƒ\ƒPƒbƒg‚ğI—¹‚·‚éD
+            // SMTPã‚µãƒ¼ãƒã¨ã®TCPã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã®
+            // ç«¯ç‚¹ã¨ã—ã¦åˆ©ç”¨ã—ã¦ã„ãŸã‚½ã‚±ãƒƒãƒˆã‚’çµ‚äº†ã™ã‚‹ï¼
             this.socket.close();
         }
     }
     
-    // ƒ[ƒ‹ƒT[ƒo‚Ö 1s‘—M‚µA‘—M‚µ‚½ 1s‚ğ•W€o—Í‚Öo—Í‚·‚éD
+    // ãƒ¡ãƒ¼ãƒ«ã‚µãƒ¼ãƒã¸ 1è¡Œé€ä¿¡ã—ã€é€ä¿¡ã—ãŸ 1è¡Œã‚’æ¨™æº–å‡ºåŠ›ã¸å‡ºåŠ›ã™ã‚‹ï¼
     private void sendLine(String line)
     {
         this.writer.println(line);
         System.out.println(line);
     }
     
-    // ƒ[ƒ‹ƒT[ƒo‚©‚ç 1sóM‚µCóM‚µ‚½ 1s‚ğ•W€o—Í‚Öo—Í‚·‚éD
+    // ãƒ¡ãƒ¼ãƒ«ã‚µãƒ¼ãƒã‹ã‚‰ 1è¡Œå—ä¿¡ã—ï¼Œå—ä¿¡ã—ãŸ 1è¡Œã‚’æ¨™æº–å‡ºåŠ›ã¸å‡ºåŠ›ã™ã‚‹ï¼
     private void recvLine()
         throws IOException
     {

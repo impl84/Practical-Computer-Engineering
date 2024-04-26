@@ -5,15 +5,15 @@ class InstanceofInterface
     
     public static void main(String args[])
     {
-        // šM“û—Ş‚Ì”z—ñ
+        // å“ºä¹³é¡ã®é…åˆ—
         Mammal mammals[] = new Mammal[NUMMAMMALS];
         
-        mammals[0] = new Bear();        // ŒF
-        mammals[1] = new Elephant();    // Û
-        mammals[2] = new Horse();       // ”n
-        mammals[3] = new Lion();        // ƒ‰ƒCƒIƒ“
+        mammals[0] = new Bear();        // ç†Š
+        mammals[1] = new Elephant();    // è±¡
+        mammals[2] = new Horse();       // é¦¬
+        mammals[3] = new Lion();        // ãƒ©ã‚¤ã‚ªãƒ³
         
-        // æ‚è•¨‚Ì‹@”\‚ğÀ‘•‚µ‚Ä‚¢‚éšM“û—Ş‚ğ—˜—p‚·‚éD
+        // ä¹—ã‚Šç‰©ã®æ©Ÿèƒ½ã‚’å®Ÿè£…ã—ã¦ã„ã‚‹å“ºä¹³é¡ã‚’åˆ©ç”¨ã™ã‚‹ï¼
         for (int i = 0; i < NUMMAMMALS; i++) {
             if (mammals[i] instanceof Vehicle) {
                 Vehicle v = (Vehicle)mammals[i];
